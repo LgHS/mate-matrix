@@ -7,14 +7,14 @@ OPC opc;
 Minim       minim;
 AudioPlayer player=null;
 FFT         fft;
-String filename = "/Users/gberger/Music/Auxiliary Tha Masterfader - Dark Side Of Disco/Auxiliary Tha Masterfader - Dark Side Of Disco - 04 Dark Side Of The Disco - Dub Mix.mp3";
+String filename = "/Users/gberger/Music/Sympathy_Roosevelt.mp3";
 
 MateMatrix mm;
 Blob[] blobs = new Blob[30];
 
 void setup()
 {
-  size(720, 360);
+  size(480, 400);
   opc = new OPC(this, "127.0.0.1", 7890);  
   // pixelDensity(2);
   colorMode(HSB);
@@ -54,13 +54,14 @@ void draw()
   for (int x = 0; x < width; x++) {
     for (int y = 0; y < height; y++) {
       int index = x + y * width;
+      
       float sum = 0;
       for (Blob b : blobs) {
         float d = dist(x, y, b.pos.x, b.pos.y);
-        sum += 150* b.r / d;
+        sum += 200 * b.r / d;
       }
 
-      pixels[index] = color(constrain(sum,80,250), 200, 200);
+      pixels[index] = color(constrain(sum,0,250), 200, 200);
     }
   }
 

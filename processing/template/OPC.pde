@@ -45,6 +45,7 @@ public class OPC implements Runnable
     }
 
     pixelLocations[index] = x + width * y;
+    
   }
   
   // Set the location of several LEDs arranged in a strip.

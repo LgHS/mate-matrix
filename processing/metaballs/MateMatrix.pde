@@ -1,38 +1,41 @@
 class MateMatrix {
 
   private OPC opc;
-  private float spacing;
+  
   private float offset;
   private PApplet applet;
 
+  private int cols = 6;
+  private int rows = 4;
+  public static final int SPACING = 20;
+  public static final int PIXELS_PER_CRATE = 20;
+  public static final int CRATE_H = 5;
+  public static final int CRATE_W = 4;
+
   public MateMatrix(PApplet applet, OPC opc) {
+    this(applet, opc, 6, 4);
+  }
+  public MateMatrix(PApplet applet, OPC opc, int cols, int rows) {
     this.opc = opc;    
     this.applet = applet;
-
-    spacing = width / 24;
-    offset = int (spacing*2);
+    this.cols = cols;
+    this.rows = rows;
+    
+    offset = int (SPACING*2);
   }
 
   public void init() {
-    float H = applet.height / 2 + spacing * 2.5;
-    float H2 = applet.height / 2 - spacing * 2.5;
+    
+    float crateWidth = SPACING * 4;
 
-    // ROW 0 (3 crates)
-    opc.ledGrid(104, 4, 5, offset, H, spacing, spacing, -PI, true, false);
-    opc.ledGrid(84, 4, 5, offset + spacing * 4, H, spacing, spacing, -PI, true, false);
-    opc.ledGrid(64, 4, 5, offset + spacing * 4 * 2, H, spacing, spacing, -PI, true, false);
-    // ROW 0 (3 crates)
-    opc.ledGrid(40, 4, 5, offset + spacing * 4 * 3, H, spacing, spacing, -PI, true, false);
-    opc.ledGrid(20, 4, 5, offset + spacing * 4 * 4, H, spacing, spacing, -PI, true, false);
-    opc.ledGrid(0, 4, 5, offset + spacing * 4 * 5, H, spacing, spacing, -PI, true, false);
-
-    // ROW 1
-    opc.ledGrid(128, 4, 5, offset + spacing * 4 * 5, H2, spacing, spacing, -PI, true, false);
-    opc.ledGrid(148, 4, 5, offset + spacing * 4 * 4, H2, spacing, spacing, -PI, true, false);
-    opc.ledGrid(168, 4, 5, offset + spacing * 4 * 3, H2, spacing, spacing, -PI, true, false);
-
-    opc.ledGrid(192, 4, 5, offset + spacing * 4 * 2, H2, spacing, spacing, -PI, true, false);
-    opc.ledGrid(212, 4, 5, offset + spacing * 4, H2, spacing, spacing, -PI, true, false);
-    opc.ledGrid(232, 4, 5, offset, H2, spacing, spacing, -PI, true, false);
+    for (int y = 0; y < rows; y++) {
+      // in OPC led grids position x,y are their centers. We have to distribute centers over the height of the sketch
+      float posY = applet.height / 2 + (SPACING * CRATE_H/2 * (-(rows-1) + y * 2));
+      for (int x = 0; x < cols; x++) {
+        int index = y * cols * PIXELS_PER_CRATE + x * PIXELS_PER_CRATE;
+        float posX = offset  + crateWidth * x;
+        opc.ledGrid(index, CRATE_W, CRATE_H, posX, posY, SPACING, SPACING, 0, true, false);
+      }
+    }
   }
 }
