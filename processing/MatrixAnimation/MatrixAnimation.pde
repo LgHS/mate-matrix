@@ -30,6 +30,7 @@ void setup()
   fft = new FFT(input.bufferSize(), input.sampleRate());
   fft.logAverages(3, 7);
   anims.add(new MetaBallsAnimation());
+  anims.add(new NervousWaves2());
   
 }
 
@@ -39,7 +40,7 @@ void draw()
 
   
   fft.forward(input.mix);
-  anims.get(0).displayFrame(fft);
+  anims.get(1).displayFrame(fft);
 }
 
 void exit() {
