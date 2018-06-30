@@ -1,3 +1,7 @@
+/**
+   Metaball Animation class 
+*/
+
 class MetaBallsAnimation implements AudioReactiveAnimationInterface {
   private Blob[] blobs = new Blob[30];
 
@@ -29,7 +33,7 @@ class MetaBallsAnimation implements AudioReactiveAnimationInterface {
         float sum = 0;
         for (Blob b : blobs) {
           float d = dist(x, y, b.pos.x, b.pos.y);
-          sum += 200 * b.r / d;
+          sum += 120 * b.r / d;
         }
 
         pixels[index] = color(constrain(sum, 0, 360), 200, 200);

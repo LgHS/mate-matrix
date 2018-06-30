@@ -8,14 +8,13 @@ Minim       minim;
 AudioInput input;
 FFT         fft;
 
-
 MateMatrix mm;
 
-ArrayList<AudioReactiveAnimationInterface> anims = new ArrayList<AudioReactiveAnimationInterface>();
+AnimationRunner animRunner;
 
 void setup()
 {
-  size(480, 400);
+  size(480, 400, P3D);
   opc = new OPC(this, "127.0.0.1", 7890);  
   // pixelDensity(2);
   colorMode(HSB);
@@ -23,24 +22,21 @@ void setup()
   // Set up your LED mapping here
   mm = new MateMatrix(this, opc);
   mm.init();
-  
+
   // audio analysis configuration
   minim = new Minim(this);
   input = minim.getLineIn();
   fft = new FFT(input.bufferSize(), input.sampleRate());
   fft.logAverages(3, 7);
-  anims.add(new MetaBallsAnimation());
-  anims.add(new NervousWaves2());
-  
+
+  // animation runner
+  animRunner = new AnimationRunner(input, fft);
 }
 
-void draw()
-{
-  background(0);
-
+void draw() {
   
-  fft.forward(input.mix);
-  anims.get(1).displayFrame(fft);
+  imageMode(CORNER);
+  animRunner.run();
 }
 
 void exit() {
@@ -48,4 +44,10 @@ void exit() {
   background(0); 
 
   super.exit();
+}
+
+void keyPressed(){
+ if(key == ' '){
+    animRunner.animIndex = int(random(0, animRunner.anims.size())); 
+ }
 }
