@@ -2,7 +2,7 @@ class CratesAnimation implements AudioReactiveAnimationInterface {
   int x=0;
   int y = 0;
   public void displayFrame(FFT fft) {
-    
+    background(0);
     noStroke();
     if (random(10)>4) {
       float hue = map(x+y*frameCount%110, 0, 260, 110 , 330);

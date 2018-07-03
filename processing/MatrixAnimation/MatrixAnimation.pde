@@ -22,9 +22,11 @@ void setup()
   // Set up your LED mapping here
   mm = new MateMatrix(this, opc);
   mm.init();
+  
 
   // audio analysis configuration
   minim = new Minim(this);
+  
   input = minim.getLineIn();
   fft = new FFT(input.bufferSize(), input.sampleRate());
   fft.logAverages(3, 7);
@@ -48,6 +50,9 @@ void exit() {
 
 void keyPressed(){
  if(key == ' '){
-    animRunner.animIndex = int(random(0, animRunner.anims.size())); 
+    animRunner.selectAnimation(); 
+ }
+ if(key>='0' && key <= '9'){
+    animRunner.selectAnimation(key-48); 
  }
 }
