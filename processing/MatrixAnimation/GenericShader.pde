@@ -1,8 +1,8 @@
 class GenericShader extends AbstractShaderAnimation {
 
-  GenericShader(String shaderFile){
+  GenericShader(String shaderFile) {
     //this.shader = loadShader(shaderFile);
-     super(shaderFile);
+    super(shaderFile);
   }
   public void displayFrame(FFT fft) {
     shader.set("time", (float) millis()/1000.0);
@@ -10,6 +10,7 @@ class GenericShader extends AbstractShaderAnimation {
 
     pg.beginDraw();
     pg.shader(shader);
+    noStroke();
     pg.rect(0, 0, pg.width, pg.height);
     pg.endDraw();
 
@@ -17,6 +18,5 @@ class GenericShader extends AbstractShaderAnimation {
   }
 
   protected void setAdditionalParams(FFT fft) {
-
   }
 }

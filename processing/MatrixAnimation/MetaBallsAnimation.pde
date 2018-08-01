@@ -20,7 +20,7 @@ class MetaBallsAnimation implements AudioReactiveAnimationInterface {
 
       b.r = fft.getBand(i);
 
-      i+=10;
+      i+=25;
     }
 
 

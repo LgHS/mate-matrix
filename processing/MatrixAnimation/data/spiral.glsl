@@ -19,9 +19,9 @@ uniform vec2 resolution;
 
    f -= time;
 
-   f = 1. -clamp(sin(f * PI * 2.) * dot(uv, uv) * resolution.y / 15. + .5, 0., 1.);
+   f = 1.0-clamp(sin(f * PI * 2.) * dot(uv, uv) * resolution.y / 150. + .5, 0., 1.);
 
-   f*= sin(length(uv) - .1);
+   f*= sin(length(uv) - .19);
 
-   gl_FragColor = vec4(f,f,f,1.0);
+   gl_FragColor = vec4(vec3(f),1.0);
  }

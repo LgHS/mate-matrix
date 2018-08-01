@@ -1,7 +1,7 @@
 abstract class AbstractShaderAnimation implements AudioReactiveAnimationInterface {
   protected PShader shader;
   protected PGraphics pg;
-
+  
   AbstractShaderAnimation(String shaderFile) {
     shader = loadShader(shaderFile);
     pg = createGraphics(width, height, P3D);

@@ -1,5 +1,6 @@
 class SineWaveShader extends AbstractShaderAnimation {
 
+  
   SineWaveShader(String shaderFile){
      super(shaderFile);
   }

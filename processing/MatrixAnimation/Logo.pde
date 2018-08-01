@@ -19,8 +19,6 @@ class Logo implements AudioReactiveAnimationInterface {
   public void displayFrame(FFT fft) {
     imageMode(CENTER);
     background(abs(sin(fft.getBand(60))*200));
-    if(beat.isOnset()) scale = 1.2;
-    //scale(0.8);
     image(logo, pos.x, pos.y);
     //fft.getBand(20), fft.getBand(40);  
     
