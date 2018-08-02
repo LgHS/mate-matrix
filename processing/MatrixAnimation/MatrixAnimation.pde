@@ -22,7 +22,7 @@ AnimationRunner animRunner;
 // byte[] colors = new byte[CRATES];
 void setup()
 {
-  size(900, 500, P3D);
+  size(980, 320, P3D);
   opc = new OPC(this, "127.0.0.1", 7890);
   // opc.setPixelCount(6*6*20);
   // pixelDensity(2);
@@ -30,10 +30,10 @@ void setup()
 
 config = loadJSONObject("matrix_config.json");
   // Set up your LED mapping here
- // mm = new MateMatrix(this, opc, 6, 5, 0, 0);
- mm = new MateMatrix(this, opc, config);
- // mm.init();
- mm.initMultiblock(config);
+  mm = new MateMatrix(this, opc, 12, 3, 0, 0);
+ //mm = new MateMatrix(this, opc, config);
+ mm.initMicroFest();
+ //mm.initMultiblock(config);
 
 
   // audio analysis configuration
@@ -89,6 +89,8 @@ void draw() {
 
     animRunner.run();
   }
+
+
 }
 
 /*

@@ -19,7 +19,7 @@ class DMXEffectsManager {
     this.dmxMessage = dmxMessage;
     setMainColor();
 
-    clear();
+    //clear();
 
     if(getDMXIntValue(DMXMapping.CRATES_FIRST) > 0){
       individualCrates();
@@ -76,7 +76,7 @@ class DMXEffectsManager {
       for(int j = 0; j < 20; j++){
 
         // color pixelColor = colorFromBytes(byte(0xFF), crateColors[i*3], crateColors[i*3+1], crateColors[i*3+2]);
-        color  pixelColor = 255 << 24 | colors[i*3] << 16 | colors[i*3+1] << 8 | int(colors[i*3+2]);
+        color  pixelColor = 255 << 24 | int(colors[i*3]) << 16 | int(colors[i*3+1]) << 8 | int(colors[i*3+2]);
         opc.setPixel(i*20+j, pixelColor );
       }
 

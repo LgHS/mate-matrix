@@ -4,12 +4,13 @@ class AnimationRunner {
   long start = 0;
   int min = 60000;
   int[] durations = {5*min, 2*min, 2*min, 3*min, min/2, min*3, min*8};
-  boolean auto=false;
+  boolean auto=true;
 
   AudioInput in;
   FFT fft;
 
   AnimationRunner(AudioInput in, FFT fft) {
+    anims.add(new Grid());
     anims.add(new MetaBallsAnimation());
     //anims.add(new NervousWaves2());
     anims.add(new LineAnimation(in));

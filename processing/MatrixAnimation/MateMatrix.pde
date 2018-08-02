@@ -54,15 +54,36 @@ class MateMatrix {
       // in OPC led grids position x,y are their centers. We have to distribute centers over the height of the sketch
       float posY = applet.height / 2 + (SPACING * CRATE_H/2 * (-(rows-1) + y * 2));
       // print("y:"+posY);
+
       for (int x = 0; x < cols; x++) {
         int index = y * cols * PIXELS_PER_CRATE + x * PIXELS_PER_CRATE;
         float posX = offset + crateWidth * x;
        // print("\tx:"+posX);
         opc.ledGrid(index, CRATE_W, CRATE_H, posX, posY, SPACING, SPACING, 0, true, false);
       }
+
       // println();
     }
     enabled = true;
+
+  }
+  public void initMicroFest(){
+
+
+    crateWidth = SPACING * 4;
+
+
+    for(int y = 0; y < rows; y++){
+      float posY  = applet.height / 2 + (SPACING * CRATE_H/2 * (-(rows-1) + y * 2));
+      println(posY);
+      for(int x = 0; x < cols; x++){
+        int index = y * cols * PIXELS_PER_CRATE + x * PIXELS_PER_CRATE;
+        float posX = offset + crateWidth * x;
+        print("\tx:"+posX);
+        opc.ledGrid(index, CRATE_W, CRATE_H, posX, posY, SPACING, SPACING, 0, true, false);
+      }
+      println();
+    }
 
   }
 
