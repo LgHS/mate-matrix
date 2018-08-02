@@ -3,7 +3,7 @@
 */
 
 class MetaBallsAnimation implements AudioReactiveAnimationInterface {
-  private Blob[] blobs = new Blob[30];
+  private Blob[] blobs = new Blob[15];
 
   MetaBallsAnimation() {
     for (int i = 0; i < blobs.length; i++) {

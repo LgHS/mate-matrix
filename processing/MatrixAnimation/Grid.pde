@@ -7,7 +7,8 @@ class Grid implements AudioReactiveAnimationInterface{
     noFill();
     stroke(255);
     colorMode(HSB);
-    strokeWeight(0.3+3*fft.getBand(80) );
+    strokeWeight(3*fft.getAvg(30) );
+
     int offset  = mm.SPACING/2;
     for(int x = 0; x < mm.cols; x++){
       for(int y = 0; y < mm.rows; y++){
