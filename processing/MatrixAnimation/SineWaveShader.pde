@@ -13,8 +13,8 @@ class SineWaveShader extends AbstractShaderAnimation {
     shader.set("coeffy", constrain(fft.getBand(800), 0, 90)); // 0 -> 100
     shader.set("coeffz", constrain(fft.getBand(600)*10, 1, 200)); // 0 -> 100
     */
-    shader.set("coeffx", fft.getBand(60)*9); // 20 -> 80
-    shader.set("coeffy", fft.getBand(800)*30.0); // 0 -> 100
-    shader.set("coeffz", fft.getBand(600)*4); // 0 -> 100
+    shader.set("coeffx", fft.getBand(4)*9); // 20 -> 80
+    shader.set("coeffy", fft.getBand(800)*70.0); // 0 -> 100
+    shader.set("coeffz", fft.getBand(600)*40); // 0 -> 100
   }
 }

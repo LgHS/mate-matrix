@@ -26,6 +26,7 @@ void setup()
   opc = new OPC(this, "127.0.0.1", 7890);
   // opc.setPixelCount(6*6*20);
   // pixelDensity(2);
+  println(Serial.list());
   colorMode(HSB);
 
 config = loadJSONObject("matrix_config.json");
@@ -65,11 +66,13 @@ void draw() {
 
   imageMode(CORNER);
 
-  if(dmx.isActive()){
-    colorMode(RGB);
-    dmx.show();
-
-    opc.pixelLocations = null;
+  if(! dmx.isActive()){
+    //colorMode(RGB);
+    //dmx.show();
+    
+    //opc.pixelLocations = null;
+    background(0);
+    noStroke();
 
   }else{
     colorMode(HSB);

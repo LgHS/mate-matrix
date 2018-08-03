@@ -2,8 +2,9 @@ class AnimationRunner {
   ArrayList<AudioReactiveAnimationInterface> anims = new ArrayList<AudioReactiveAnimationInterface>();
   int animIndex=0;
   long start = 0;
-  int min = 60000;
-  int[] durations = {5*min, 2*min, 2*min, 3*min, min/2, min*3, min*8};
+  int sec = 1000;
+ // int[] durations = {5*sec, 2*sec, 2*sec, 3*sec, sec/2, sec*3, sec*8};
+  int[] durations = {};
   boolean auto=true;
 
   AudioInput in;
@@ -35,7 +36,7 @@ class AnimationRunner {
       anims.get(animIndex).displayFrame(fft);
 
       if (auto) {
-        if (millis() - start > (animIndex < durations.length ? durations[animIndex] : 10000)) {
+        if (millis() - start > (animIndex < durations.length ? durations[animIndex] : random(1000,5000))) {
           start = millis();
           animIndex = int(random(0, anims.size()));
         }

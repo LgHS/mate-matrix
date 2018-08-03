@@ -30,7 +30,7 @@ class DMXMode {
   }
 
   void manageMessage(Serial dmxSerial){
-    
+
     try{
       dmxSerial.readBytes(dmxMessage);
 

@@ -9,7 +9,7 @@ class LineAnimation implements AudioReactiveAnimationInterface {
     background(0,200);
     stroke(255);
     strokeWeight(18);
-    for (int i = 0; i < in.mix.level()*50; i++){
+    for (int i = 0; i < in.mix.level()*90; i++){
       // println(in.mix.level());
       float h = abs(sin(t))*height+0.3*i;
       float w = abs(cos(t))*width+0.3*i;
