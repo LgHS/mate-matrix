@@ -4,15 +4,12 @@
   "pixelsPerCrate": 20,
   "crateH" : 5,
   "crateW" : 4,
-  "cols": 9,
+  "cols": 12,
   "rows" : 3,
-    "blocks" : [
-      {"position": "left", "firstLed": 0, "cols": 2, "rows": 5},
-      {"position": "center", "firstLed": 40, "cols": 5, "rows": 3},
-      {"position": "right", "firstLed": 140, "cols": 2, "rows": 5}
-    ]
-
-  },
-
-
+  "blocks" : [
+    {"position": "left", "firstLed": 0, "cols": 3, "rows": 3},
+    {"position": "center", "firstLed": 40, "cols": 6, "rows": 3},
+    {"position": "right", "firstLed": 140, "cols": 3, "rows": 3}
+  ],
+  "dmxSerialPort": ""
 }

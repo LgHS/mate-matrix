@@ -1,4 +1,4 @@
-// stolen from https://www.openprocessing.org/sketch/514836
+ // stolen from https://www.openprocessing.org/sketch/514836
 class BreathingLines implements AudioReactiveAnimationInterface {
   int numLines = 24;
   float theta = 0;

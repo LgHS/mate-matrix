@@ -1,26 +1,13 @@
-class Grid implements AudioReactiveAnimationInterface{
+class Grid extends AbstractGrid{
+  public void drawCrate(float x, float y,float w, float h ) {
+    pushMatrix();
+    translate(x, y);
 
-  void displayFrame(FFT fft){
+    rect(0,0, w, h  );
+    popMatrix();
+  }
 
-    background(0);
-
-    noFill();
-    stroke(255);
-    colorMode(HSB);
+  protected void changeDesignElements(){
     strokeWeight(3*fft.getAvg(30) );
-
-    int offset  = mm.SPACING/2;
-    for(int x = 0; x < mm.cols; x++){
-      for(int y = 0; y < mm.rows; y++){
-          pushMatrix();
-          translate(offset+x*4*mm.SPACING, offset*2 + y * mm.CRATE_H*mm.SPACING);
-
-          rect(0,0, (mm.CRATE_W-1)*mm.SPACING+1, (mm.CRATE_H-1)*mm.SPACING+1);
-          popMatrix();
-      }
-
-
-    }
-    
   }
 }

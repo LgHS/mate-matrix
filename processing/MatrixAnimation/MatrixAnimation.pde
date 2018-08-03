@@ -49,9 +49,9 @@ config = loadJSONObject("matrix_config.json");
   // animation runner
   animRunner = new AnimationRunner(input, fft);
   dmx = new DMXMode(this, opc);
-
+  String dmxSerialPort = config.getString("dmxSerialPort");
   try{
-    enttec = new Serial(this, "/dev/tty.usbserial-EN095291", 115000);
+    enttec = new Serial(this, dmxSerialPort, 115000);
     enttec.bufferUntil(0xE7);
   }catch(RuntimeException e){
     println("no dmx interface, forcing auto mode");

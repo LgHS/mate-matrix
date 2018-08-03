@@ -8,7 +8,7 @@ class AnimationRunner {
 
   AudioInput in;
   FFT fft;
-
+//  PVector[] blocks = new PVector[]{new PVector(3,3), new PVector(6,3), new PVector(3,3)}
   AnimationRunner(AudioInput in, FFT fft) {
     anims.add(new Grid());
     anims.add(new MetaBallsAnimation());
@@ -20,7 +20,8 @@ class AnimationRunner {
     anims.add(new CratesAnimation());
     anims.add(new SineWaveShader("sinewave.glsl"));
     anims.add(new GenericShader("spiral.glsl"));
-    anims.add(new GenericShader("sinewave2.glsl"));
+    anims.add(new AudioReactiveShader("sinewave2.glsl", new int[]{80}));
+    anims.add(new RectSplitAnimation(new PVector[]{new PVector(3,3), new PVector(6,3), new PVector(3,3)}));
     this.in = in;
     this.fft = fft;
     start = millis();
