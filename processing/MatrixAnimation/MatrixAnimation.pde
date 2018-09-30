@@ -10,7 +10,7 @@ AudioInput input;
 FFT         fft;
 Serial enttec;
 
-static final int CRATES = 36;
+static final int CRATES = 30;
 
 MateMatrix mm;
 JSONObject config;
@@ -22,7 +22,7 @@ AnimationRunner animRunner;
 // byte[] colors = new byte[CRATES];
 void setup()
 {
-  size(980, 320, P3D);
+  size(480, 500, P3D);
   opc = new OPC(this, "127.0.0.1", 7890);
   // opc.setPixelCount(6*6*20);
   // pixelDensity(2);
@@ -31,8 +31,8 @@ void setup()
 
   config = loadJSONObject("matrix_config.json");
   // Set up your LED mapping here
- // mm = new MateMatrix(this, opc, 12, 3, 0, 0);
-  mm = new MateMatrix(this, opc, config);
+  mm = new MateMatrix(this, opc, 6, 5, 0, 0);
+  //mm = new MateMatrix(this, opc, config);
   mm.initMicroFest();
   //mm.initMultiblock(config);
   //mm.init();
@@ -63,38 +63,38 @@ void setup()
 }
 
 void draw() {
-  background(0);
-   fill(140, 200, 255);
-   rect(mouseX, mouseY, 100,100);
-  /*
-  if(! dmx.isActive()){
-   //colorMode(RGB);
-   //dmx.show();
-   
-   //opc.pixelLocations = null;
-   background(0);
-   noStroke();
-   
-   }else{
-   colorMode(HSB);
-   if(opc.pixelLocations == null){
-   mm.init();
-   }
-   try{
-   animRunner.choseAnimFromDMX(dmx.getAnimationSelector());
-   if(dmx.getRandomAnim()){
-   animRunner.selectAnimation();
-   }
-   }catch(NullPointerException e){
-   println("error 1");
-   println(e.getMessage());
-   }
-   
-   
-   animRunner.run();
-   }
-   
-   //*/
+  //background(0);
+  //fill(140, 200, 255);
+  //rect(mouseX, mouseY, 100,100);
+  //*
+  if (! dmx.isActive()) {
+    //colorMode(RGB);
+    //dmx.show();
+
+    //opc.pixelLocations = null;
+    background(0);
+    noStroke();
+  } else {
+    colorMode(HSB);
+    if (opc.pixelLocations == null) {
+      mm.init();
+    }
+    try {
+      animRunner.choseAnimFromDMX(dmx.getAnimationSelector());
+      if (dmx.getRandomAnim()) {
+        animRunner.selectAnimation();
+      }
+    }
+    catch(NullPointerException e) {
+      println("error 1");
+      println(e.getMessage());
+    }
+
+
+    animRunner.run();
+  }
+
+  //*/
 }
 
 /*

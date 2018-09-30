@@ -2,15 +2,26 @@
 
 OPC opc;
 MateMatrix mm;
+
 float t = 0;
+
+int nbCratesX = 6;
+int nbCratesY = 5;
+
+void settings(){
+  int w = nbCratesX * mm.CRATE_W * mm.SPACING;
+  int h = nbCratesY * mm.CRATE_H * mm.SPACING;
+  size(w,h);
+}
 void setup()
 {
-  size(480, 400);
+  // size(100, 100);
+  
   opc = new OPC(this, "127.0.0.1", 7890);
   //opc.setDithering(false);
   //opc.setInterpolation(false);  
   // Set up your LED mapping here
-  mm = new MateMatrix(this, opc);
+  mm = new MateMatrix(this, opc, 6, 5);
   mm.init();
   rectMode(CENTER);
   frameRate(200);
