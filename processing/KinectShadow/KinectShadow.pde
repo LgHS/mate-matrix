@@ -4,9 +4,6 @@ Kinect kinect;
 
 PImage img;
 
-int numCols = 28;
-int numRows = 25;
-
 float minThresh = 0;
 float maxThresh = 800;
 
