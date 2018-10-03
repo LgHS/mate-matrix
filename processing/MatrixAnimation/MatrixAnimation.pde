@@ -20,6 +20,7 @@ DMXMode dmx;
 AnimationRunner animRunner;
 // byte[] lastDMX = new byte[519];
 // byte[] colors = new byte[CRATES];
+
 void setup()
 {
   size(480, 500, P3D);
@@ -31,7 +32,7 @@ void setup()
 
   config = loadJSONObject("matrix_config.json");
   // Set up your LED mapping here
-  mm = new MateMatrix(this, opc, 6, 5, 0, 0);
+ mm = new MateMatrix(this, opc, 6, 5, 0, 0);
   //mm = new MateMatrix(this, opc, config);
   mm.initMicroFest();
   //mm.initMultiblock(config);
@@ -64,37 +65,37 @@ void setup()
 
 void draw() {
   //background(0);
-  //fill(140, 200, 255);
-  //rect(mouseX, mouseY, 100,100);
+   //fill(140, 200, 255);
+   //rect(mouseX, mouseY, 100,100);
   //*
-  if (! dmx.isActive()) {
+  if(! dmx.isActive()){
     //colorMode(RGB);
     //dmx.show();
-
+    
     //opc.pixelLocations = null;
     background(0);
     noStroke();
-  } else {
+    
+   }else{
     colorMode(HSB);
-    if (opc.pixelLocations == null) {
-      mm.init();
+    if(opc.pixelLocations == null){
+    mm.init();
+   }
+   try{
+    animRunner.choseAnimFromDMX(dmx.getAnimationSelector());
+    if(dmx.getRandomAnim()){
+      animRunner.selectAnimation();
     }
-    try {
-      animRunner.choseAnimFromDMX(dmx.getAnimationSelector());
-      if (dmx.getRandomAnim()) {
-        animRunner.selectAnimation();
-      }
-    }
-    catch(NullPointerException e) {
-      println("error 1");
-      println(e.getMessage());
-    }
-
-
-    animRunner.run();
-  }
-
-  //*/
+   }catch(NullPointerException e){
+    println("error 1");
+    println(e.getMessage());
+   }
+   
+   
+   animRunner.run();
+   }
+   
+   //*/
 }
 
 /*

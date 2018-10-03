@@ -32,7 +32,7 @@ void setup() {
   kinect.enableMirror(true);
 
   cam = createImage(kinect.width, kinect.height, RGB);
-
+  pg = createGraphics(width, height, P3D);
   shader = loadShader("simple.glsl");
   colorMode(HSB, 360,255,255);
 
@@ -53,8 +53,8 @@ void draw() {
 
   cam.loadPixels();
 
-  //minThresh = map(mouseX, 0, width, 0, 2048);
-  //maxThresh = map(mouseY, 0, height, 0, 2048);
+  minThresh = map(mouseX, 0, width, 0, 2048);
+  maxThresh = map(mouseY, 0, height, 0, 2048);
 
   int[] depth = kinect.getRawDepth();
 
@@ -77,27 +77,33 @@ void draw() {
   float occupationRatio = occupation * 1.0f / (kinect.width * kinect.height);
   
   // shader
-  shader.set("time", occupationRatio);
+  shader.set("time", millis() * 0.001);
+  shader.set("occupation", occupationRatio);
   shader.set("cam", cam.get()); 
-  shader.set("res", kinect.width, kinect.height);
+  shader.set("res", kinect.width*1.0f, kinect.height*1.0f);
   //shader.set("freq0", abs(sin(millis()*0.0001)));  
   
-  //pg.beginDraw();
-  shader(shader);
+  pg.beginDraw();
+  pg.shader(shader);
   //fill(degrees(abs(TWO_PI * sin(frameCount * 0.0002))), 150, 255);
-  rect(0, 0, kinect.width, kinect.height);
-  //pg.endDraw();
+  pg.rect(0, 0, width, height);
+  pg.endDraw();
 
   //tint(255, 127);
-  //pg.blend(img, 0, 0, width, height, 0, 0, width, height, SUBTRACT);
+  //pg.blend(cam, 0, 0, width, height, 0, 0, width, height, SUBTRACT);
   //image(img, 0, 0);  
   
-  //image(pg, 0, 0);
+  image(pg, 0, 0);
   //fill(0,100);
   //rect(0,0, width, height);
-  /*
+  
   fill(255);
   textSize(32);
   text(minThresh + " " + maxThresh, 20, 20);
-  */
+  
+}
+
+void exit() {
+  background(0);
+  super.exit();
 }
