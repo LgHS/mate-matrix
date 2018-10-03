@@ -1,3 +1,6 @@
 fadecandy/*
 .DS_STORE
 build/*
+out/
+*.class
+.vscode
