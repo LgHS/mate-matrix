@@ -7,14 +7,16 @@ MateMatrix mm;
 
 PShader shader;
 PGraphics pg;
-float minThresh = 30;
-float maxThresh = 840;
-PImage img;
+float minThresh = 0;
+float maxThresh = 800;
+PImage cam;
 float t = 0;
 int nbCratesX = 6;
 int nbCratesY = 5;
 
 int kinectFill = -1;
+
+int occupation = 0;
 
 void settings() {
   int w = nbCratesX * mm.CRATE_W * mm.SPACING;
@@ -29,10 +31,10 @@ void setup() {
   kinect.initDepth();
   kinect.enableMirror(true);
 
-  img = createImage(kinect.width, kinect.height, RGB);
+  cam = createImage(kinect.width, kinect.height, RGB);
 
-  shader = loadShader("sinewave2.glsl");
-  pg = createGraphics(width, height, P3D);
+  shader = loadShader("simple.glsl");
+  colorMode(HSB, 360,255,255);
 
   opc = new OPC(this, "127.0.0.1", 7890);
   //opc.setDithering(false);
@@ -42,11 +44,14 @@ void setup() {
   mm.init();
 }
 
-void draw() {
-  background(0);
-  surface.setTitle(frameRate + "fps");
+PImage third;
 
-  img.loadPixels();
+void draw() {
+  //background(130, 100);
+  surface.setTitle(frameRate + "fps");
+  occupation = 0;
+
+  cam.loadPixels();
 
   //minThresh = map(mouseX, 0, width, 0, 2048);
   //maxThresh = map(mouseY, 0, height, 0, 2048);
@@ -56,32 +61,40 @@ void draw() {
   for (int x = 0; x < kinect.width; x++) {
     for (int y = 0; y < kinect.height; y++) {
       int offset = x + y * kinect.width;
-      int d = depth[offset];
+      int d = depth[offset];  
 
       if (d > minThresh && d < maxThresh) {
-        img.pixels[offset] = -1;
+        cam.pixels[offset] = -1;
+        occupation++;
       } else {
-        img.pixels[offset] = 1;
+        cam.pixels[offset] = 0;
       }
     }
   }
 
-  img.updatePixels();
-
+  cam.updatePixels();
+  
+  float occupationRatio = occupation * 1.0f / (kinect.width * kinect.height);
+  
   // shader
-  shader.set("time", (float) millis() / 100.0);
-  shader.set("resolution", float(pg.width), float(pg.height));
-  shader.set("freq0", abs(sin(millis()*0.01)));  
+  shader.set("time", occupationRatio);
+  shader.set("cam", cam.get()); 
+  shader.set("res", kinect.width, kinect.height);
+  //shader.set("freq0", abs(sin(millis()*0.0001)));  
+  
+  //pg.beginDraw();
+  shader(shader);
+  //fill(degrees(abs(TWO_PI * sin(frameCount * 0.0002))), 150, 255);
+  rect(0, 0, kinect.width, kinect.height);
+  //pg.endDraw();
 
-  pg.beginDraw();
-  pg.shader(shader);
-  pg.rect(0, 0, pg.width, pg.height);
-  pg.endDraw();
-
-  pg.blend(img, 0, 0, width, height, 0, 0, width, height, SUBTRACT);
-  //image(img, 0, 0);
-  image(pg, 0, 0);
-
+  //tint(255, 127);
+  //pg.blend(img, 0, 0, width, height, 0, 0, width, height, SUBTRACT);
+  //image(img, 0, 0);  
+  
+  //image(pg, 0, 0);
+  //fill(0,100);
+  //rect(0,0, width, height);
   /*
   fill(255);
   textSize(32);

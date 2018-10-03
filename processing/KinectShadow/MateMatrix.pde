@@ -1,4 +1,4 @@
-class MateMatrix {
+  class MateMatrix {
 
   private OPC opc;
   
