@@ -21,18 +21,30 @@ AnimationRunner animRunner;
 // byte[] lastDMX = new byte[519];
 // byte[] colors = new byte[CRATES];
 
+void settings(){
+  config = loadJSONObject("matrix_config.json");
+  int cols = config.getInt("cols");
+  int rows = config.getInt("rows");
+  int crateW = config.getInt("crateW");
+  int crateH = config.getInt("crateH");
+  int spacing = config.getInt("spacing");
+  int w = cols*crateW*spacing;
+  int h  = rows *crateH*spacing;
+  size(w,h,P3D);
+}
+
 void setup()
 {
-  size(480, 500, P3D);
+  // size(480, 500, P3D);
   opc = new OPC(this, "127.0.0.1", 7890);
   // opc.setPixelCount(6*6*20);
   // pixelDensity(2);
   println(Serial.list());
   colorMode(HSB);
 
-  config = loadJSONObject("matrix_config.json");
+  
   // Set up your LED mapping here
- mm = new MateMatrix(this, opc, 6, 5, 0, 0);
+  mm = new MateMatrix(this, opc, config);
   //mm = new MateMatrix(this, opc, config);
   mm.initMicroFest();
   //mm.initMultiblock(config);
