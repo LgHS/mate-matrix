@@ -11,6 +11,7 @@ MateMatrix mm;
 JSONObject config;
 
 PShader shader;
+PGraphics pg;
 PImage cam;
 
 float minThresh = 0;
@@ -48,22 +49,20 @@ void setup() {
 
   oscP5 = new OscP5(this, 10000);
 
-  cam = createImage(kinect.width, kinect.height, RGB);
   shader = loadShader("simple.glsl");
   colorMode(HSB, 360,255,255);
 
+  cam = createImage(kinect.width, kinect.height, RGB);
+  pg = createGraphics(width, height, P3D);
+
   opc = new OPC(this, "127.0.0.1", 7890);
-  //opc.setDithering(false);
-  //opc.setInterpolation(false);  
-  // Set up your LED mapping here
   mm = new MateMatrix(this, opc, config);
-  mm.init();
+  mm.init(true);
 }
 
 PImage third;
 
 void draw() {
-  //background(130, 100);
   surface.setTitle(frameRate + "fps");
   occupation = 0;
 
@@ -74,7 +73,7 @@ void draw() {
   for (int x = 0; x < kinect.width; x++) {
     for (int y = 0; y < kinect.height; y++) {
       int offset = x + y * kinect.width;
-      int d = depth[offset];  
+      int d = depth[offset];
 
       if (d > minThresh && d < maxThresh) {
         cam.pixels[offset] = -1;
@@ -98,8 +97,15 @@ void draw() {
   shader.set("cam", cam.get()); 
   shader.set("res", kinect.width*1.0f, kinect.height*1.0f);
   
-  shader(shader);
-  rect(0, 0, width, height);
+  //shader(shader);
+  //fill(204, 102, 0);
+  //rect(0, 0, width, height);
+  pg.beginDraw();
+  pg.shader(shader);
+  pg.rect(0, 0, width, height);
+  pg.endDraw();
+  
+  image(pg, 0, 0);
 }
 
 void exit() {

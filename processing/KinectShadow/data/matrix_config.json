@@ -4,7 +4,7 @@
   "pixelsPerCrate": 20,
   "crateH" : 5,
   "crateW" : 4,
-  "cols": 8,
+  "cols": 7,
   "rows" : 4,
   "blocks" : [
     {"position": "left", "firstLed": 0, "cols": 3, "rows": 3},

@@ -6,6 +6,7 @@ uniform vec2 res;
 uniform float freq0;
 uniform sampler2D cam;
 uniform bool idle;
+varying vec4 vertColor;
 
 void main() {
     vec2 uv = gl_FragCoord.xy / res.xy ;
@@ -15,8 +16,16 @@ void main() {
     col +=  vec3(sin(occupation*10), 0, 0);
     
     if (!idle) {
-    col.rgb *= t.rgb;
+        col.rgb *= t.rgb;
     }
-    
-    gl_FragColor = vec4(col,1.0);
-}
+
+    /*if(t.r == 0) {
+        if(vertColor.a > 0.2) {
+            colA.a = vertColor.a * 0.9;
+        } else {
+            colA.a = 0;
+        }
+    }*/
+
+    gl_FragColor = vec4(col, 0.05);
+}v
