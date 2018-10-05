@@ -7,8 +7,8 @@ class Rings implements AudioReactiveAnimationInterface {
     stroke(145, 255,200);
     strokeWeight(30);
     noFill();
-    for (int i = 0; i < 1200; i+=150) {
-      float d = fft.getBand(i)*20;
+    for (int i = 0; i < 64; i+=150) {
+      float d = fft.spectrum[64]*20;
       // println(d);
       ellipse(noise(seed, d)*width, map(d,0, 180, height, 0), d, d);
       seed+=0.002;

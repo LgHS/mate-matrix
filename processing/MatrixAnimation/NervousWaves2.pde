@@ -16,17 +16,17 @@ class NervousWaves2 implements AudioReactiveAnimationInterface {
 
     for (int x = 10; x < width; x += 10) {
       for (int y = 10; y < height; y += 10) {
-        float n = noise((x % t)*0.5, y * fft.getBand(400)* 0.5, 100);
+        float n = noise((x % t)*0.5, fft.spectrum[10], y*fft.spectrum[10]);
         pushMatrix();
         translate(x, y);
         rotate(TWO_PI * n);
-        scale(2 * fft.getBand(y*x));
+        scale(fft.spectrum[35]*y);
         fill(0);
         rect(-1, -1, 1, 1);
         
         popMatrix();
       }
     }
-    t+=0.1*fft.getBand(200)*12;
+    t+=0.1*fft.spectrum[2]*2;
   }
 }

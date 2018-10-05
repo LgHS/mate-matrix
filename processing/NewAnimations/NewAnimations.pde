@@ -30,8 +30,8 @@ MateMatrix mm;
 
 float t = 0;
 
-int nbCratesX = 6;
-int nbCratesY = 5;
+int nbCratesX = 4;
+int nbCratesY = 2;
 
 void settings() {
   int w = nbCratesX * mm.CRATE_W * mm.SPACING;
@@ -46,7 +46,7 @@ void setup()
   //opc.setDithering(false);
   //opc.setInterpolation(false);  
   // Set up your LED mapping here
-  mm = new MateMatrix(this, opc, 6, 5);
+  mm = new MateMatrix(this, opc, nbCratesX, nbCratesY);
   mm.init();
   rectMode(CENTER);
   frameRate(200);
@@ -77,6 +77,8 @@ void draw()
   noStroke();
 
   fft.analyze();
+  ellipse(mouseX, mouseY, 20,20);
+  /*
   for (int i = 0; i < bands; i++) {
     // Smooth the FFT data by smoothing factor
     sum[i] += (fft.spectrum[i] - sum[i]) * smooth_factor;
@@ -94,6 +96,7 @@ void draw()
       }
     }
   }
+  */
 }
 
 void exit() {

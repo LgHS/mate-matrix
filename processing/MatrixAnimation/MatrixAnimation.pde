@@ -1,21 +1,28 @@
 // example sketch based on Dan Schiffman's Metaballs algorithm and @scanlime OPC Client library
-import ddf.minim.*;
-import ddf.minim.analysis.*;
+// import ddf.minim.*;
+// import ddf.minim.analysis.*;
+import processing.sound.*;
+
 import processing.serial.*;
 
+// Open Pixel Control
 OPC opc;
 
-Minim       minim;
-AudioInput input;
-FFT         fft;
+// Audio objects
+AudioIn input;
+FFT     fft;
+Amplitude amplitude;
+int bands = 64;
+
+// DMX device
 Serial enttec;
+DMXMode dmx;
+
 
 static final int CRATES = 30;
 
 MateMatrix mm;
 JSONObject config;
-
-DMXMode dmx;
 
 AnimationRunner animRunner;
 // byte[] lastDMX = new byte[519];
@@ -51,18 +58,8 @@ void setup()
   //mm.init();
 
 
-  // audio analysis configuration
-  minim = new Minim(this);
+  
 
-  input = minim.getLineIn();
-
-  fft = new FFT(input.bufferSize(), input.sampleRate());
-  fft.linAverages(256);
-  //fft.logAverages(3, 7);
-
-
-  // animation runner
-  animRunner = new AnimationRunner(input, fft);
   dmx = new DMXMode(this, opc);
   String dmxSerialPort = config.getString("dmxSerialPort");
   try {
@@ -73,9 +70,31 @@ void setup()
     println("no dmx interface, forcing auto mode");
     dmx.setMode(1);
   }
+
+  // audio analysis configuration
+ 
+  input = new AudioIn(this);
+  // input.amp(1.0);
+  input.start();
+  try{ 
+    fft = new FFT(this, bands);
+    fft.input(input);
+  
+    amplitude = new Amplitude(this);
+    amplitude.input(input);
+  
+  }catch(RuntimeException e){
+    println("a problem occured during the initialisation of audio device");
+    println(e.getMessage());
+  }
+  
+
+  // animation runner
+  animRunner = new AnimationRunner(amplitude, fft);
 }
 
 void draw() {
+  
   //background(0);
    //fill(140, 200, 255);
    //rect(mouseX, mouseY, 100,100);
@@ -100,6 +119,9 @@ void draw() {
     }
    }catch(NullPointerException e){
     println("error 1");
+    println(e.getMessage());
+   }catch(RuntimeException e){
+     println("error 2");
     println(e.getMessage());
    }
    
