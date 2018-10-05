@@ -19,13 +19,5 @@ void main() {
         col.rgb *= t.rgb;
     }
 
-    /*if(t.r == 0) {
-        if(vertColor.a > 0.2) {
-            colA.a = vertColor.a * 0.9;
-        } else {
-            colA.a = 0;
-        }
-    }*/
-
-    gl_FragColor = vec4(col, 0.05);
+    gl_FragColor = vec4(col, 0.15);
 }
