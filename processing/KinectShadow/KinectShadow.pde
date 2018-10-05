@@ -53,8 +53,8 @@ void draw() {
 
   cam.loadPixels();
 
-  minThresh = map(mouseX, 0, width, 0, 2048);
-  maxThresh = map(mouseY, 0, height, 0, 2048);
+  //minThresh = map(mouseX, 0, width, 0, 2048);
+  //maxThresh = map(mouseY, 0, height, 0, 2048);
 
   int[] depth = kinect.getRawDepth();
 
@@ -96,11 +96,11 @@ void draw() {
   image(pg, 0, 0);
   //fill(0,100);
   //rect(0,0, width, height);
-  
+  /*
   fill(255);
   textSize(32);
   text(minThresh + " " + maxThresh, 20, 20);
-  
+  */
 }
 
 void exit() {
