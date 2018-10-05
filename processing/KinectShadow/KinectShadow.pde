@@ -1,15 +1,24 @@
 import org.openkinect.processing.*;
+import oscP5.*;
+import netP5.*;
+
+OscP5 oscP5;
+NetAddress broadcastLocation; 
 
 Kinect kinect;
-
 OPC opc;
 MateMatrix mm;
+JSONObject config;
 
 PShader shader;
-PGraphics pg;
+PImage cam;
+
 float minThresh = 0;
 float maxThresh = 800;
-PImage cam;
+float occupationThreshold = 0.2f;
+boolean isIdle = true;
+boolean useIdle = false;
+
 float t = 0;
 int nbCratesX = 6;
 int nbCratesY = 5;
@@ -19,9 +28,15 @@ int kinectFill = -1;
 int occupation = 0;
 
 void settings() {
-  int w = nbCratesX * mm.CRATE_W * mm.SPACING;
-  int h = nbCratesY * mm.CRATE_H * mm.SPACING;
-  size(w, h, P3D);
+  config = loadJSONObject("matrix_config.json");
+  int cols = config.getInt("cols");
+  int rows = config.getInt("rows");
+  int crateW = config.getInt("crateW");
+  int crateH = config.getInt("crateH");
+  int spacing = config.getInt("spacing");
+  int w = cols*crateW*spacing;
+  int h  = rows *crateH*spacing;
+  size(w,h,P3D);
 }
 
 void setup() {
@@ -31,8 +46,9 @@ void setup() {
   kinect.initDepth();
   kinect.enableMirror(true);
 
+  oscP5 = new OscP5(this, 10000);
+
   cam = createImage(kinect.width, kinect.height, RGB);
-  pg = createGraphics(width, height, P3D);
   shader = loadShader("simple.glsl");
   colorMode(HSB, 360,255,255);
 
@@ -40,7 +56,7 @@ void setup() {
   //opc.setDithering(false);
   //opc.setInterpolation(false);  
   // Set up your LED mapping here
-  mm = new MateMatrix(this, opc, 6, 5);
+  mm = new MateMatrix(this, opc, config);
   mm.init();
 }
 
@@ -52,9 +68,6 @@ void draw() {
   occupation = 0;
 
   cam.loadPixels();
-
-  //minThresh = map(mouseX, 0, width, 0, 2048);
-  //maxThresh = map(mouseY, 0, height, 0, 2048);
 
   int[] depth = kinect.getRawDepth();
 
@@ -76,34 +89,39 @@ void draw() {
   
   float occupationRatio = occupation * 1.0f / (kinect.width * kinect.height);
   
+  isIdle = useIdle && (occupationRatio < occupationThreshold);
+  
   // shader
+  shader.set("idle", isIdle);
   shader.set("time", millis() * 0.001);
   shader.set("occupation", occupationRatio);
   shader.set("cam", cam.get()); 
   shader.set("res", kinect.width*1.0f, kinect.height*1.0f);
-  //shader.set("freq0", abs(sin(millis()*0.0001)));  
   
-  pg.beginDraw();
-  pg.shader(shader);
-  //fill(degrees(abs(TWO_PI * sin(frameCount * 0.0002))), 150, 255);
-  pg.rect(0, 0, width, height);
-  pg.endDraw();
-
-  //tint(255, 127);
-  //pg.blend(cam, 0, 0, width, height, 0, 0, width, height, SUBTRACT);
-  //image(img, 0, 0);  
-  
-  image(pg, 0, 0);
-  //fill(0,100);
-  //rect(0,0, width, height);
-  /*
-  fill(255);
-  textSize(32);
-  text(minThresh + " " + maxThresh, 20, 20);
-  */
+  shader(shader);
+  rect(0, 0, width, height);
 }
 
 void exit() {
   background(0);
   super.exit();
+}
+
+/* incoming osc message are forwarded to the oscEvent method. */
+void oscEvent(OscMessage theOscMessage) {
+  if(theOscMessage.addrPattern().equals("/oscControl/slider1")) {
+    minThresh = 2048 * theOscMessage.get(0).floatValue();
+  }
+
+  if(theOscMessage.addrPattern().equals("/oscControl/slider2")) {
+    maxThresh = 2048 * theOscMessage.get(0).floatValue();;
+  }
+
+  if(theOscMessage.addrPattern().equals("/oscControl/slider3")) {
+    occupationThreshold = theOscMessage.get(0).floatValue();
+  }
+
+  if(theOscMessage.addrPattern().equals("/oscControl/toggle1")) {
+    useIdle = theOscMessage.get(0).floatValue() == 1.0f;
+  }
 }
