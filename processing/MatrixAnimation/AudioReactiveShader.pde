@@ -3,6 +3,9 @@ class AudioReactiveShader extends AbstractShaderAnimation{
     AudioReactiveShader(String shaderFile){
       super(shaderFile);
     }
+    /**
+     *  an array of bands to analyse and pass to the shader
+     **/
     AudioReactiveShader(String shaderFile, int[] freqs){
       super(shaderFile);
       this.freqs = freqs;
@@ -12,7 +15,7 @@ class AudioReactiveShader extends AbstractShaderAnimation{
       for(int i = 0; i < freqs.length; i++){
         String paramName = "freq"+i;
 
-        shader.set(paramName, fft.getBand(freqs[i]));
+        shader.set(paramName, fft.spectrum[freqs[i]]*30);
       }
     }
 

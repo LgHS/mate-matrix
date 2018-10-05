@@ -1,24 +1,25 @@
+
 class Logo implements AudioReactiveAnimationInterface {
   PImage logo;
-  AudioInput in;
+  Amplitude ampl;
   float t = 0.1;
   float scale = 1.2;
   
   PVector pos;
   PVector velocity;
   
-  BeatDetect beat;
   
-  Logo(AudioInput in) {
+  
+  Logo(Amplitude ampl) {
     logo = loadImage("fesses.png");
-    this.in = in;
-    beat = new BeatDetect();
+    this.ampl = ampl;
+    
     pos = new PVector(width/2, height/2);
     velocity = new PVector(2,0);
   }
   public void displayFrame(FFT fft) {
     imageMode(CENTER);
-    background(abs(sin(fft.getBand(60))*200));
+    background(abs(sin(fft.spectrum[2])*200));
     image(logo, pos.x, pos.y);
     //fft.getBand(20), fft.getBand(40);  
     

@@ -33,14 +33,14 @@ class RectSplitAnimation extends AbstractSplitAnimation implements AudioReactive
       pushMatrix();
       rectMode(CENTER);
       translate(x+w/2,y+h/2);
-
-      fill(255- 255*fft.getBand(40));
+      rotate(sin(fft.getBand(24)*10)*PI);
+      fill(255 - 255*fft.spectrum[2]);
 
       float tmpW = w;
       float tmpH = h;
-      w = constrain(w/(fft.getBand(40)+1), 0, w+offset);
-      h = constrain(h/(fft.getBand(40)+1), 0, h+offset);
-      stroke(map(w*h, 0, tmpW*tmpH, 0, 360), 255, 255);
+      w = constrain(w/(20*fft.spectrum[2]+1), 0, w+offset);
+      h = constrain(h/(20*fft.spectrum[2]+1), 0, h+offset);
+      stroke(map(w*h, 0, tmpW*tmpH, 0, 260), 255, 255);
 
       rect(0,0,w,h);
 

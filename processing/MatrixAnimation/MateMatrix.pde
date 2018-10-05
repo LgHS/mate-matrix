@@ -46,19 +46,36 @@ class MateMatrix {
     this.posY = posY;
 
   }
-  public void init() {
+
+  public void init(){
+    init(false);
+  }
+  
+  /**
+    * 
+    * The mapping between the display and the physical matrix
+    *
+    * @param boolean zigzag agencement of the crates (true : one row left to right and the other right to left)
+    * 
+   **/ 
+  public void init(boolean zigzag) {
 
     crateWidth = SPACING * 4;
 
     for (int y = 0; y < rows; y++) {
       // in OPC led grids position x,y are their centers. We have to distribute centers over the height of the sketch
       float posY = applet.height / 2 + (SPACING * CRATE_H/2 * (-(rows-1) + y * 2));
-      // print("y:"+posY);
 
       for (int x = 0; x < cols; x++) {
         int index = y * cols * PIXELS_PER_CRATE + x * PIXELS_PER_CRATE;
+        if(zigzag){
+          if(y % 2 == 1){
+            index = (y + 1) * cols * PIXELS_PER_CRATE - (x+1) * PIXELS_PER_CRATE ;          
+          }
+        }
+        
         float posX = offset + crateWidth * x;
-       // print("\tx:"+posX);
+       
         opc.ledGrid(index, CRATE_W, CRATE_H, posX, posY, SPACING, SPACING, 0, true, false);
       }
 

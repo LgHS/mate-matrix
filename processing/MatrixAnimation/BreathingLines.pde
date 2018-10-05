@@ -2,9 +2,9 @@
 class BreathingLines implements AudioReactiveAnimationInterface {
   int numLines = 24;
   float theta = 0;
-  AudioInput in;
-  BreathingLines(AudioInput in){
-    this.in = in;
+  Amplitude ampl;
+  BreathingLines(Amplitude ampl){
+    this.ampl = ampl;
   }
   public void displayFrame(FFT fft) {
     background(0);
@@ -17,7 +17,7 @@ class BreathingLines implements AudioReactiveAnimationInterface {
       float x = (i+1) * ((float) width/(numLines+1));
       float distFromCenter = dist(x, 0, width/2, 0);
       float waveOffset = map(distFromCenter, 0, width/2, 0, 100);
-      float wave = 20 * sin((HALF_PI)* sin((-frameCount + waveOffset) / 40.0)) + fft.getBand(4);
+      float wave = 20 * sin((HALF_PI)* sin((-frameCount + waveOffset) / 40.0)) + fft.spectrum[4]*120;
       strokeWeight(abs(wave));
       stroke(wave*3, 200, 255);
       line(x, 0, x, height/2 );

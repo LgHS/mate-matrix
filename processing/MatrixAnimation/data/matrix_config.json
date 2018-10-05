@@ -1,11 +1,11 @@
 {
-  "nbCrates" : 36,
+  "nbCrates" : 30,
   "spacing" : 20,
   "pixelsPerCrate": 20,
   "crateH" : 5,
   "crateW" : 4,
-  "cols": 12,
-  "rows" : 3,
+  "cols": 7,
+  "rows" : 5,
   "blocks" : [
     {"position": "left", "firstLed": 0, "cols": 3, "rows": 3},
     {"position": "center", "firstLed": 40, "cols": 6, "rows": 3},

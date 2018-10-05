@@ -1,15 +1,15 @@
 class LineAnimation implements AudioReactiveAnimationInterface {
 
   float t = 0.003;
-  AudioInput in;
-  LineAnimation(AudioInput in) {
-    this.in = in;
+  Amplitude ampl;
+  LineAnimation(Amplitude ampl) {
+    this.ampl = ampl;
   }
   public void displayFrame(FFT fft) {
     background(0,200);
     stroke(255);
     strokeWeight(18);
-    for (int i = 0; i < in.mix.level()*90; i++){
+    for (int i = 0; i < this.ampl.analyze()*40; i++){
       // println(in.mix.level());
       float h = abs(sin(t))*height+0.3*i;
       float w = abs(cos(t))*width+0.3*i;

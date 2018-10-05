@@ -7,32 +7,38 @@ class AnimationRunner {
   int[] durations = {};
   boolean auto=true;
 
-  AudioInput in;
+  Amplitude ampl;
   FFT fft;
 //  PVector[] blocks = new PVector[]{new PVector(3,3), new PVector(6,3), new PVector(3,3)}
-  AnimationRunner(AudioInput in, FFT fft) {
+  AnimationRunner(Amplitude ampl, FFT fft) {
     anims.add(new Grid());
+    anims.add(new AudioReactiveShader("rainbow.glsl", new int[]{2, 12}));
+    anims.add(new AudioReactiveShader("nebula.glsl", new int[]{2}));
     anims.add(new MetaBallsAnimation());
     //anims.add(new NervousWaves2());
-    anims.add(new LineAnimation(in));
-    anims.add(new BreathingLines(in));
+    anims.add(new LineAnimation(ampl));
+    anims.add(new BreathingLines(ampl));
     anims.add(new MonjoriShader("monjori.glsl"));
     // anims.add(new Logo(in));
     anims.add(new CratesAnimation());
     anims.add(new SineWaveShader("sinewave.glsl"));
     anims.add(new GenericShader("spiral.glsl"));
-    anims.add(new AudioReactiveShader("sinewave2.glsl", new int[]{80}));
-    anims.add(new RectSplitAnimation(new PVector[]{new PVector(3,3), new PVector(6,3), new PVector(3,3)}));
-    this.in = in;
+    anims.add(new AudioReactiveShader("sinewave2.glsl", new int[]{2}));
+    
+    // TODO : retrieve blocks configuration from json file
+    anims.add(new RectSplitAnimation(new PVector[]{new PVector(2,5), new PVector(3,5), new PVector(2,5)}));
+    this.ampl = ampl;
     this.fft = fft;
     start = millis();
   }
 
   public void run() {
-    if (in.mix == null) {
+    float volume = ampl.analyze();
+
+    if (volume < 0.06) {
       anims.get(5).displayFrame(fft);
     } else {
-      fft.forward(in.mix);
+      fft.analyze();
       anims.get(animIndex).displayFrame(fft);
 
       if (auto) {

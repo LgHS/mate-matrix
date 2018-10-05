@@ -30,13 +30,19 @@ class MateMatrix {
 
     for (int y = 0; y < rows; y++) {
       // in OPC led grids position x,y are their centers. We have to distribute centers over the height of the sketch
-      float posY = applet.height / 2 + (SPACING * CRATE_H/2 * (-(rows-1) + y * 2));
+      float posY = applet.height / 2  + (SPACING * CRATE_H/2 * (-(rows-1) + y * 2));
       for (int x = 0; x < cols; x++) {
         int index = y * cols * PIXELS_PER_CRATE + x * PIXELS_PER_CRATE;
+        if(y % 2 == 1){
+          index = y * PIXELS_PER_CRATE * rows - 1;
+          
+        }
+        print(index+"\t");
         float posX = offset  + crateWidth * x;
-        ellipse(posX, posY, 20,20);
+       
         opc.ledGrid(index, CRATE_W, CRATE_H, posX, posY, SPACING, SPACING, 0, true, false);
       }
+      println();
     }
   }
 }
