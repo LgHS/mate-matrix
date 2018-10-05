@@ -10,7 +10,6 @@ OPC opc;
 MateMatrix mm;
 JSONObject config;
 
-PShader shader;
 PGraphics pg;
 PImage cam;
 
@@ -27,6 +26,13 @@ int nbCratesY = 5;
 int kinectFill = -1;
 
 int occupation = 0;
+
+IdleAnimation idleAnimation;
+AnimationFactory animationFactory;
+AnimationInterface currentAnim;
+
+int interval = 10000;
+int lastRecordedTime = 0;
 
 void settings() {
   config = loadJSONObject("matrix_config.json");
@@ -49,7 +55,6 @@ void setup() {
 
   oscP5 = new OscP5(this, 10000);
 
-  shader = loadShader("simple.glsl");
   colorMode(HSB, 360,255,255);
 
   cam = createImage(kinect.width, kinect.height, RGB);
@@ -58,9 +63,11 @@ void setup() {
   opc = new OPC(this, "127.0.0.1", 7890);
   mm = new MateMatrix(this, opc, config);
   mm.init(true);
-}
 
-PImage third;
+  idleAnimation = new IdleAnimation();
+  animationFactory = new AnimationFactory();
+  currentAnim = animationFactory.getNextAnimation();
+}
 
 void draw() {
   surface.setTitle(frameRate + "fps");
@@ -89,21 +96,18 @@ void draw() {
   float occupationRatio = occupation * 1.0f / (kinect.width * kinect.height);
   
   isIdle = useIdle && (occupationRatio < occupationThreshold);
+
+  if(isIdle) {
+    pg = idleAnimation.draw(pg, cam, occupationRatio);
+  } else {
+    if(millis() - lastRecordedTime > interval){
+      currentAnim = animationFactory.getNextAnimation();
+      interval = currentAnim.duration();
+      lastRecordedTime = millis(); 
+    }
+    pg = currentAnim.draw(pg, cam, occupationRatio);
+  }
   
-  // shader
-  shader.set("idle", isIdle);
-  shader.set("time", millis() * 0.001);
-  shader.set("occupation", occupationRatio);
-  shader.set("cam", cam.get()); 
-  shader.set("res", kinect.width*1.0f, kinect.height*1.0f);
-  
-  //shader(shader);
-  //fill(204, 102, 0);
-  //rect(0, 0, width, height);
-  pg.beginDraw();
-  pg.shader(shader);
-  pg.rect(0, 0, width, height);
-  pg.endDraw();
   
   image(pg, 0, 0);
 }
