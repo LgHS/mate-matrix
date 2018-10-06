@@ -16,5 +16,5 @@ void main() {
     col +=  vec3(sin(occupation*10), 0, 0);
     col.rgb *= 1 - t.rgb;
 
-    gl_FragColor = vec4(col, 0.9);
+    gl_FragColor = vec4(col, 0.6);
 }

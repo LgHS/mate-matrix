@@ -5,9 +5,13 @@ class RainbowAnimation implements AnimationInterface {
         shader = loadShader("rainbow.glsl");
     }
 
+    public void beforeDraw() {
+        
+    }
+
     public PGraphics draw(PGraphics pg, PImage pointCloudImage, float occupationRatio) {
         shader.set("time", millis() * 0.001);
-        //shader.set("res", kinect.width*1.0f, kinect.height*1.0f);
+        shader.set("resolution", kinect.width*1.0f, kinect.height*1.0f);
         //shader.set("occupation", occupationRatio);
         shader.set("cam", cam.get()); 
 
@@ -19,6 +23,6 @@ class RainbowAnimation implements AnimationInterface {
     }
 
     public int duration() {
-        return 10000;
+        return 1000;
     }
 }

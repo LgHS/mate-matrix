@@ -17,7 +17,7 @@ float minThresh = 0;
 float maxThresh = 950;
 float occupationThreshold = 0.2f;
 boolean isIdle = true;
-boolean useIdle = false;
+boolean useIdle = true;
 
 float t = 0;
 int nbCratesX = 6;
@@ -31,7 +31,7 @@ IdleAnimation idleAnimation;
 AnimationFactory animationFactory;
 AnimationInterface currentAnim;
 
-int interval = 10000;
+int interval = 60000;
 int lastRecordedTime = 0;
 
 void settings() {
@@ -67,6 +67,7 @@ void setup() {
   idleAnimation = new IdleAnimation();
   animationFactory = new AnimationFactory();
   currentAnim = animationFactory.getNextAnimation();
+  currentAnim.beforeDraw();
 }
 
 void draw() {
@@ -101,9 +102,10 @@ void draw() {
     pg = idleAnimation.draw(pg, cam, occupationRatio);
   } else {
     if(millis() - lastRecordedTime > interval){
-      currentAnim = animationFactory.getNextAnimation();
-      interval = currentAnim.duration();
+      //currentAnim = animationFactory.getNextAnimation();
+      //interval = currentAnim.duration();
       lastRecordedTime = millis(); 
+      currentAnim.beforeDraw();
     }
     pg = currentAnim.draw(pg, cam, occupationRatio);
   }

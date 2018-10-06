@@ -29,13 +29,11 @@ void main(void)
     //create stripes
     vec3 col        = vec3(1.0 - mod(uv.y * 0.5 + (t * (FALLING_SPEED + value / 5.0)) + value, 0.5));
     //add color
-         col       *= clamp(cos(t* 2.0 + uv.xyx + vec3(0, 2, 4)), 0.0, 1.0);
+         col       *= clamp(cos(t / 2.0 + uv.xyx * value + vec3(0, 2, 4)), 0.0, 1.0);
     //add glowing ends
     	 col 	   += vec3(sphere(gl_FragCoord.xy, 
                                   vec2(clamped_uv.x, (1.0 - 2.0 * mod((t * (FALLING_SPEED + value / 5.0)) + value, 0.5))) * resolution.xy, 
                                   8)); 
-    //add screen fade
-      //  col       *= vec3(exp(-pow(abs(uv.y - 0.5), 6.0) / pow(2.0 * 0.05, 2.0)));
     // Output to screen
     col.rgb *= 1 - tex.rgb;
     gl_FragColor       = vec4(col,1.0);

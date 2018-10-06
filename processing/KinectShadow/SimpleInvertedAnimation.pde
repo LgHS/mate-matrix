@@ -5,6 +5,10 @@ class SimpleInvertedAnimation implements AnimationInterface {
         shader = loadShader("inverted_shadow.glsl");
     }
 
+    public void beforeDraw() {
+        
+    }
+
     public PGraphics draw(PGraphics pg, PImage pointCloudImage, float occupationRatio) {
         shader.set("time", millis() * 0.001);
         shader.set("res", kinect.width*1.0f, kinect.height*1.0f);

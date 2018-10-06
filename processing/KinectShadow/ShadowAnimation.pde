@@ -1,12 +1,18 @@
-class SimpleShadowAnimation implements AnimationInterface {
+class ShadowAnimation implements AnimationInterface {
     PShader shader;
+    ArrayList<String> shaderList = new ArrayList<String>();
+    int index = -1;
 
-    public SimpleShadowAnimation() {
-        shader = loadShader("simple_shadow.glsl");
+    public ShadowAnimation() {
+        shaderList.add("crazy_wave.glsl");
+        shaderList.add("riples.glsl");
+        shaderList.add("plasma.glsl");
+        shaderList.add("simple_shadow.glsl");
     }
 
     public void beforeDraw() {
-        
+        index = index < shaderList.size() - 1 ? ++index : 0;
+        shader = loadShader(shaderList.get(index));
     }
 
     public PGraphics draw(PGraphics pg, PImage pointCloudImage, float occupationRatio) {
@@ -23,6 +29,6 @@ class SimpleShadowAnimation implements AnimationInterface {
     }
 
     public int duration() {
-        return 10000;
+        return 60000;
     }
 }
