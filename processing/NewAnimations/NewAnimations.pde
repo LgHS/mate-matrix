@@ -1,3 +1,5 @@
+
+
 // This is an empty Processing sketch with support for Fadecandy.
 import processing.sound.*;
 
@@ -30,8 +32,8 @@ MateMatrix mm;
 
 float t = 0;
 
-int nbCratesX = 4;
-int nbCratesY = 2;
+int nbCratesX = 9;
+int nbCratesY = 3;
 
 void settings() {
   int w = nbCratesX * mm.CRATE_W * mm.SPACING;
@@ -47,19 +49,19 @@ void setup()
   //opc.setInterpolation(false);  
   // Set up your LED mapping here
   mm = new MateMatrix(this, opc, nbCratesX, nbCratesY);
-  mm.init();
+  mm.init(false);
   rectMode(CENTER);
   frameRate(200);
   colorMode(HSB);
   textSize(80);
 
-  
+
   // Calculate the width of the rects depending on how many bands we have
   r_width = width/float(bands);
 
   // Load and play a soundfile and loop it. This has to be called 
   // before the FFT is created.
-  input = new AudioIn(this, 0);
+  input = new AudioIn(this, 1);
   input.amp(1.0);
   input.start();
   amplitude = new Amplitude(this);
@@ -77,8 +79,8 @@ void draw()
   noStroke();
 
   fft.analyze();
-  ellipse(mouseX, mouseY, 20,20);
-  /*
+
+
   for (int i = 0; i < bands; i++) {
     // Smooth the FFT data by smoothing factor
     sum[i] += (fft.spectrum[i] - sum[i]) * smooth_factor;
@@ -86,7 +88,7 @@ void draw()
   }
   surface.setTitle(frameRate+" fps -  "+amplitude.analyze()+" RMS");
   if (amplitude.analyze() > 0.1) {
-    anim2();
+    anim1();
     bandIndex = (bandIndex+2 < bands) ? bandIndex+2:0;
   } else {
     if (random(500)<2) {
@@ -96,7 +98,6 @@ void draw()
       }
     }
   }
-  */
 }
 
 void exit() {
@@ -131,7 +132,7 @@ void anim2() {
 }
 void anim1() {
   pushMatrix();
-  
+
   for (int i = 0; i < bands; i++) {
     fill(map(sum[i], 0, max/4, 180, 80), 255, 255);
     // Draw the rects with a scale factor

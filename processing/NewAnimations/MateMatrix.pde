@@ -24,7 +24,7 @@ class MateMatrix {
     offset = int (SPACING*2);
   }
 
-  public void init() {
+  public void init(boolean zigzag) {
     
     float crateWidth = SPACING * 4;
 
@@ -33,8 +33,9 @@ class MateMatrix {
       float posY = applet.height / 2  + (SPACING * CRATE_H/2 * (-(rows-1) + y * 2));
       for (int x = 0; x < cols; x++) {
         int index = y * cols * PIXELS_PER_CRATE + x * PIXELS_PER_CRATE;
-        if(y % 2 == 1){
-          index = y * PIXELS_PER_CRATE * rows - 1;
+        
+        if(zigzag && y % 2 == 1){
+          index = (y + 1) * cols * PIXELS_PER_CRATE - (x+1) * PIXELS_PER_CRATE;
           
         }
         print(index+"\t");

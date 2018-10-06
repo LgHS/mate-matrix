@@ -83,7 +83,7 @@ void main( void ) {
 
 	vec3 tc = pow(vec3(1.0-lum),vec3(sin(position.x)+cos(time)+4.0,8.0+sin(time)+4.0,80.0));
 	vec3 tc2 = pow(vec3(1.1-lum2),vec3(5.0,position.y+cos(time)+7.0,sin(position.x)+sin(time)+2.0));
-	vec3 curr_color = (tc*6.8) + (tc2*2.5);
+	vec3 curr_color = (tc*6.8)+(tc2*2.5*freq0);
 	
 	
 	//Let's draw some stars

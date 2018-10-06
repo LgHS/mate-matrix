@@ -1,8 +1,8 @@
 // stolen from Akufishi on ShaderToy https://www.shadertoy.com/view/lscBRf 
 // adapted to Procesing by gberger
 
-#define FALLING_SPEED  0.05
-#define STRIPES_FACTOR 35.0
+#define FALLING_SPEED  0.01
+#define STRIPES_FACTOR 10.0
 
 uniform float time;
 uniform vec2 resolution;
@@ -34,7 +34,7 @@ void main(void)
                                   vec2(clamped_uv.x, (1.0 - 2.0 * mod((t * (FALLING_SPEED + value / 5.0)) + value, 0.5))) * resolution.xy, 
                                   freq1*3.)) * .6; 
     //add screen fade
-      //  col       *= vec3(exp(-pow(abs(uv.y - 0.5), 6.0) / pow(2.0 * 0.05, 2.0)));
+     col       *= vec3(exp(-pow(abs(uv.y - 0.5), 6.0) / pow(2.0 * 0.05, 2.0)));
     // Output to screen
     gl_FragColor       = vec4(col,1.0);
 } 

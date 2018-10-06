@@ -53,13 +53,13 @@ void setup()
   // Set up your LED mapping here
   mm = new MateMatrix(this, opc, config);
   //mm = new MateMatrix(this, opc, config);
-  mm.initMicroFest();
+  mm.init(false);
   //mm.initMultiblock(config);
   //mm.init();
 
 
   
-
+/*
   dmx = new DMXMode(this, opc);
   String dmxSerialPort = config.getString("dmxSerialPort");
   try {
@@ -70,11 +70,11 @@ void setup()
     println("no dmx interface, forcing auto mode");
     dmx.setMode(1);
   }
-
+*/
   // audio analysis configuration
  
   input = new AudioIn(this);
-  // input.amp(1.0);
+  input.amp(1.0);
   input.start();
   try{ 
     fft = new FFT(this, bands);
@@ -98,7 +98,7 @@ void draw() {
   //background(0);
    //fill(140, 200, 255);
    //rect(mouseX, mouseY, 100,100);
-  //*
+  /*
   if(! dmx.isActive()){
     //colorMode(RGB);
     //dmx.show();
@@ -108,11 +108,13 @@ void draw() {
     noStroke();
     
    }else{
+      
     colorMode(HSB);
     if(opc.pixelLocations == null){
-    mm.init();
-   }
+      mm.init();
+    }
    try{
+     
     animRunner.choseAnimFromDMX(dmx.getAnimationSelector());
     if(dmx.getRandomAnim()){
       animRunner.selectAnimation();
@@ -127,9 +129,11 @@ void draw() {
    
    
    animRunner.run();
-   }
-   
+  }
+  
    //*/
+   colorMode(HSB);
+   animRunner.run();
 }
 
 /*

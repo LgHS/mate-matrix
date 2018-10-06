@@ -12,6 +12,7 @@ class AnimationRunner {
 //  PVector[] blocks = new PVector[]{new PVector(3,3), new PVector(6,3), new PVector(3,3)}
   AnimationRunner(Amplitude ampl, FFT fft) {
     anims.add(new Grid());
+    anims.add(new AudioReactiveShader("discoTunnel.glsl", new int[]{}));
     anims.add(new AudioReactiveShader("rainbow.glsl", new int[]{2, 12}));
     anims.add(new AudioReactiveShader("nebula.glsl", new int[]{2}));
     anims.add(new MetaBallsAnimation());
@@ -22,11 +23,11 @@ class AnimationRunner {
     // anims.add(new Logo(in));
     anims.add(new CratesAnimation());
     anims.add(new SineWaveShader("sinewave.glsl"));
-    anims.add(new GenericShader("spiral.glsl"));
+    // anims.add(new GenericShader("spiral.glsl"));
     anims.add(new AudioReactiveShader("sinewave2.glsl", new int[]{2}));
     
     // TODO : retrieve blocks configuration from json file
-    anims.add(new RectSplitAnimation(new PVector[]{new PVector(2,5), new PVector(3,5), new PVector(2,5)}));
+    anims.add(new RectSplitAnimation(new PVector[]{new PVector(3,3), new PVector(3,3), new PVector(3,3)}));
     this.ampl = ampl;
     this.fft = fft;
     start = millis();
@@ -34,20 +35,29 @@ class AnimationRunner {
 
   public void run() {
     float volume = ampl.analyze();
+    surface.setTitle(volume+" ");
+    if (volume < 0.08) {
+      // anims.get(5).displayFrame(fft);
+      if(random(500)<2){
+        animIndex = int(random(0,anims.size()));
+      }else{
+        // display something on volume drop
 
-    if (volume < 0.06) {
-      anims.get(5).displayFrame(fft);
+        
+      }
     } else {
       fft.analyze();
       anims.get(animIndex).displayFrame(fft);
-
+      /*
       if (auto) {
         if (millis() - start > (animIndex < durations.length ? durations[animIndex] : random(1000,5000))) {
           start = millis();
           animIndex = int(random(0, anims.size()));
         }
       }
+      */
     }
+
   }
   // xxx duration should be in the Animation class
   private int getDuration() {
