@@ -14,7 +14,7 @@ PGraphics pg;
 PImage cam;
 
 float minThresh = 0;
-float maxThresh = 800;
+float maxThresh = 950;
 float occupationThreshold = 0.2f;
 boolean isIdle = true;
 boolean useIdle = false;

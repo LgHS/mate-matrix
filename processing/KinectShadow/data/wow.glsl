@@ -8,6 +8,7 @@ uniform sampler2D cam;
 uniform bool idle;
 varying vec4 vertColor;
 
+// absolutely not what we wanted to do, but wow
 void main() {
     vec2 uv = gl_FragCoord.xy / res.xy ;
     vec4 t = texture2D(cam, vec2(uv.x, 1.0-uv.y));
@@ -17,6 +18,5 @@ void main() {
     
     col.rgb *= t.rgb;
 
-    //gl_FragColor = vec4(col, col.r > 0.001 ? 0.05 : 1);
-    gl_FragColor = vec4(col, 0.05);
+    gl_FragColor = vec4(col, step(0.2, col) * 0.05);
 }
