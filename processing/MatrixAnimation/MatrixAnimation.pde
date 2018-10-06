@@ -48,7 +48,7 @@ void setup()
   // pixelDensity(2);
   println(Serial.list());
   colorMode(HSB);
-
+    background(0);
   
   // Set up your LED mapping here
   mm = new MateMatrix(this, opc, config);
@@ -133,7 +133,8 @@ void draw() {
   
    //*/
    colorMode(HSB);
-   animRunner.run();
+    animRunner.run();
+  
 }
 
 /*
