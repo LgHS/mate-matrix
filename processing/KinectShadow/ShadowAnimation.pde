@@ -4,9 +4,9 @@ class ShadowAnimation implements AnimationInterface {
     int index = -1;
 
     public ShadowAnimation() {
-        shaderList.add("crazy_wave.glsl");
-        shaderList.add("riples.glsl");
-        shaderList.add("plasma.glsl");
+        // shaderList.add("crazy_wave.glsl");
+        // shaderList.add("riples.glsl");
+        // shaderList.add("plasma.glsl");
         shaderList.add("simple_shadow.glsl");
     }
 

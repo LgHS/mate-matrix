@@ -14,8 +14,8 @@ PGraphics pg;
 PImage cam;
 
 float minThresh = 0;
-float maxThresh = 950;
-float occupationThreshold = 0.2f;
+float maxThresh = 2048*0.46;
+float occupationThreshold = 0.06f;
 boolean isIdle = true;
 boolean useIdle = true;
 
@@ -62,7 +62,7 @@ void setup() {
 
   opc = new OPC(this, "127.0.0.1", 7890);
   mm = new MateMatrix(this, opc, config);
-  mm.init(true);
+  mm.init();
 
   idleAnimation = new IdleAnimation();
   animationFactory = new AnimationFactory();

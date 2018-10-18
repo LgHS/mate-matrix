@@ -8,8 +8,8 @@ class MateMatrix {
   private float offset;
   private PApplet applet;
   private float crateWidth;
-  private int cols = 6;
-  private int rows = 4;
+  private int cols = 9;
+  private int rows = 5;
   private int posX = 0;
   private int posY = 0;
   private boolean enabled;
