@@ -27,6 +27,8 @@ int kinectFill = -1;
 
 int occupation = 0;
 
+boolean showButtons = true; // true;
+
 IdleAnimation idleAnimation;
 AnimationFactory animationFactory;
 AnimationInterface currentAnim;
@@ -110,8 +112,24 @@ void draw() {
     pg = currentAnim.draw(pg, cam, occupationRatio);
   }
   
-  
   image(pg, 0, 0);
+
+  if(showButtons) {
+    drawButtons();
+  }
+}
+
+void drawButtons() {
+  int nbButtons = 3;
+  int buttonSize = 120;
+  
+  for(int i = 0; i < nbButtons; i++) {
+    int yPosition = height / nbButtons * i + height / (nbButtons * 2);
+    fill(0, 0, 255, 200);
+    noStroke();
+    ellipse(20 + buttonSize / 2, yPosition, buttonSize, buttonSize);
+    ellipse(width - 20 - buttonSize / 2, yPosition, buttonSize, buttonSize);
+  }
 }
 
 void exit() {
