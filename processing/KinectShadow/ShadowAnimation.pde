@@ -7,7 +7,8 @@ class ShadowAnimation implements AnimationInterface {
         // shaderList.add("crazy_wave.glsl");
         // shaderList.add("riples.glsl");
         // shaderList.add("plasma.glsl");
-        shaderList.add("simple_shadow.glsl");
+        //shaderList.add("simple_shadow.glsl");
+        shaderList.add("simple_simple_shadow.glsl");
     }
 
     public void beforeDraw() {
