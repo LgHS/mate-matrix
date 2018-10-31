@@ -2,7 +2,8 @@
 // import ddf.minim.*;
 // import ddf.minim.analysis.*;
 import processing.sound.*;
-
+import oscP5.*;
+import netP5.*;
 import processing.serial.*;
 
 // Open Pixel Control
@@ -18,6 +19,10 @@ int bands = 64;
 Serial enttec;
 DMXMode dmx;
 
+// OSC 
+
+OscP5 oscP5;
+NetAddress broadcastLocation;
 
 static final int CRATES = 30;
 
@@ -25,6 +30,12 @@ MateMatrix mm;
 JSONObject config;
 
 AnimationRunner animRunner;
+boolean running = true;
+float globalHue = 0;
+float globalSaturation = 255;
+float globalBrightness = 255;
+
+
 // byte[] lastDMX = new byte[519];
 // byte[] colors = new byte[CRATES];
 
@@ -74,7 +85,7 @@ void setup()
   // audio analysis configuration
  
   input = new AudioIn(this);
-  input.amp(1.0);
+  input.amp(0.3);
   input.start();
   try{ 
     fft = new FFT(this, bands);
@@ -87,10 +98,13 @@ void setup()
     println("a problem occured during the initialisation of audio device");
     println(e.getMessage());
   }
+
+   oscP5 = new OscP5(this, 10000);
   
 
   // animation runner
-  animRunner = new AnimationRunner(amplitude, fft);
+  animRunner = new AnimationRunner(this, amplitude, fft);
+  
 }
 
 void draw() {
@@ -129,11 +143,28 @@ void draw() {
    
    
    animRunner.run();
-  }
-  
-   //*/
+  }*/
+    background(0);
+    td.displayText();
+    return;
+   /*
    colorMode(HSB);
-    animRunner.run();
+   noStroke();
+   if(running){
+     animRunner.run();
+   }else{
+     if(frameCount % 6 < 3){
+       if(globalHue<10){
+        background(0);
+       }else{
+         background(globalHue, globalSaturation, globalBrightness);
+       }
+       
+     }else{
+       background(0);
+     }
+   }
+   */
   
 }
 
@@ -170,4 +201,49 @@ void keyPressed() {
   if (key == 'a' || key == 'A') {
     animRunner.toggleAutoMode();
   }
+
+}
+
+void oscEvent(OscMessage theOscMessage){
+  if(theOscMessage.addrPattern().equals("/matrix/manual")){
+    float val = theOscMessage.get(0).floatValue();
+    animRunner.setAutoMode(val == 0.0);
+  }
+
+  if(theOscMessage.addrPattern().equals("/matrix/minVolume")){
+    animRunner.setLowVolumeThreshold(theOscMessage.get(0).floatValue());
+  }
+
+  if(theOscMessage.addrPattern().equals("matrix/maxVolume")){
+    animRunner.setHighVolumeThreshold(theOscMessage.get(0).floatValue());
+  }
+
+  if(theOscMessage.addrPattern().equals("/matrix/anim")){
+    animRunner.selectAnimation(int(theOscMessage.get(0).floatValue()));
+  }
+
+  if(theOscMessage.addrPattern().equals("/matrix/run")){
+    running = theOscMessage.get(0).floatValue() == 1.0;
+    println("running : "+(running?"true":"false") );
+
+  }
+  if(theOscMessage.addrPattern().equals("/matrix/hue")){
+    globalHue = theOscMessage.get(0).floatValue();
+
+  }
+  if(theOscMessage.addrPattern().equals("/matrix/saturation")){
+    globalSaturation = theOscMessage.get(0).floatValue();
+    
+  }
+  if(theOscMessage.addrPattern().equals("/matrix/brighntess")){
+    globalBrightness = theOscMessage.get(0).floatValue();
+    
+  }
+
+  if(theOscMessage.addrPattern().equals("/matrix/fftScaleFactor")){
+    fft.setScaleFactor(theOscMessage.get(0).floatValue());
+  }
+
+
+
 }

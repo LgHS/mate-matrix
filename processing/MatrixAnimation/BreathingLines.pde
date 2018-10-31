@@ -17,12 +17,22 @@ class BreathingLines implements AudioReactiveAnimationInterface {
       float x = (i+1) * ((float) width/(numLines+1));
       float distFromCenter = dist(x, 0, width/2, 0);
       float waveOffset = map(distFromCenter, 0, width/2, 0, 100);
-      float wave = fft.getScaledBand(12) * 20 * sin((HALF_PI)* sin((-frameCount + waveOffset) / 40.0)) + fft.getScaledBand(8)*20;
+      float wave = fft.getScaledBand(12) * 2 * sin((HALF_PI)* sin((-frameCount + waveOffset) / 40.0)) + fft.getScaledBand(8)*2;
       strokeWeight(abs(wave));
+      
       stroke(wave*3, 200, 255);
+       
+      
       line(x, 0, x, height/2 );
-      stroke(wave*6, 200, 255);
-      line(x, height/2, x, height );
+      
+    
+      stroke(constrain(wave*6, 40, 260), 200, 255);
+        
+    
+        
+        line(x, height/2, x, height );
+      
+      
     }
 
     theta+= PI/60;

@@ -15,7 +15,7 @@ class AudioReactiveShader extends AbstractShaderAnimation{
       for(int i = 0; i < freqs.length; i++){
         String paramName = "freq"+i;
 
-        shader.set(paramName, fft.spectrum[freqs[i]]*30);
+        shader.set(paramName, fft.getScaledBand(freqs[i]));
       }
     }
 

@@ -1,8 +1,8 @@
 // stolen from Akufishi on ShaderToy https://www.shadertoy.com/view/lscBRf 
 // adapted to Procesing by gberger
 
-#define FALLING_SPEED  0.01
-#define STRIPES_FACTOR 10.0
+#define FALLING_SPEED  0.0005
+#define STRIPES_FACTOR 15.0
 
 uniform float time;
 uniform vec2 resolution;
@@ -18,7 +18,7 @@ float sphere(vec2 coord, vec2 pos, float r) {
 //main
 void main(void)
 {
-    float t = time*0.01*freq0;
+    float t = time*freq0*0.01;
     //normalize pixel coordinates
     vec2 uv         = gl_FragCoord.xy / resolution.xy;
     //pixellize uv

@@ -6,11 +6,21 @@ class AnimationRunner {
  // int[] durations = {5*sec, 2*sec, 2*sec, 3*sec, sec/2, sec*3, sec*8};
   int[] durations = {};
   boolean auto=true;
+  PApplet parent;
+  int peaks = 0;
+  float lowestVolume = 10000;
 
   Amplitude ampl;
   FFT fft;
+
+  float lowVolumeThreshold = 47.2;
+  float highVolumeThreshold = 50.0;
+
+  TextDisplayer td;
+
 //  PVector[] blocks = new PVector[]{new PVector(3,3), new PVector(6,3), new PVector(3,3)}
-  AnimationRunner(Amplitude ampl, FFT fft) {
+  AnimationRunner(PApplet parent, Amplitude ampl, FFT fft) {
+    anims.add(new AudioReactiveShader("trippy.glsl", new int[]{4}));
     anims.add(new Grid());
     anims.add(new AudioReactiveShader("discoTunnel.glsl", new int[]{}));
     anims.add(new AudioReactiveShader("rainbow.glsl", new int[]{2, 12}));
@@ -18,7 +28,7 @@ class AnimationRunner {
     anims.add(new MetaBallsAnimation());
     //anims.add(new NervousWaves2());
     anims.add(new LineAnimation(ampl));
-    anims.add(new BreathingLines(ampl));
+    //anims.add(new BreathingLines(ampl));
     anims.add(new MonjoriShader("monjori.glsl"));
     // anims.add(new Logo(in));
     anims.add(new CratesAnimation());
@@ -27,26 +37,65 @@ class AnimationRunner {
     anims.add(new AudioReactiveShader("sinewave2.glsl", new int[]{2}));
     
     // TODO : retrieve blocks configuration from json file
-    anims.add(new RectSplitAnimation(new PVector[]{new PVector(3,3), new PVector(3,3), new PVector(3,3)}));
+    // anims.add(new RectSplitAnimation(new PVector[]{new PVector(3,3), new PVector(3,3), new PVector(3,3)}));
     this.ampl = ampl;
     this.fft = fft;
-    start = millis();
+    start = millis(); 
   }
 
   public void run() {
-    float volume = ampl.analyze();
-    surface.setTitle(volume+" ");
-    if (volume < 0.08) {
-      // anims.get(5).displayFrame(fft);
-      if(random(500)<2){
-        animIndex = int(random(0,anims.size()));
-      }else{
-        // display something on volume drop
+    
+    float volume = ampl.analyze()*100;
 
+    
+    surface.setTitle("v : "+volume);
+    //surface.setTitle(frameRate+"");
+    float rnd = random(500);
+
+    if(volume < lowestVolume  ){
+      lowestVolume = volume;
+    
+    }
+
+    if (volume < lowVolumeThreshold) {
+      // anims.get(5).displayFrame(fft);
+      rectMode(CORNER);
+      fill(0, 10);
+      noStroke();
+      rect(0, 0, width, height);
+      
+      if( rnd < 3 &&  auto){
+
+        animIndex = int(random(0,anims.size()));
+      }else if(rnd < 10){
+        fill(255);
+        rect(0,0, width, height);
+      }else if (rnd < 15){
+        background(0);
+        fill(255);
+        //ellipse(width/2, height/2, 150, 150);
+        // put text or static geometric shapes at random
+        
+      }else{
+        
+        anims.get(animIndex).displayFrame(fft);
+        
         
       }
-    } else {
+    } else if(volume > highVolumeThreshold){
+        // fill(255*(frameCount%2));
+        if(frameCount%2 == 0){
+          fill(globalHue, globalSaturation, globalBrightness);
+        }else{
+          fill(0);
+        }
+          
+        rect(0,0, width, height);
+        peaks++;
+       // println(peaks);
+    } else{
       fft.analyze();
+      
       anims.get(animIndex).displayFrame(fft);
       /*
       if (auto) {
@@ -87,5 +136,18 @@ class AnimationRunner {
   public void toggleAutoMode() {
     auto = !auto;
     println("auto mode: ", auto?"enabled":"disabled");
+  }
+
+  public void setAutoMode(boolean val){
+    auto = val;
+    println("auto mode: ", auto?"enabled":"disabled");
+  }
+
+    
+  public void setLowVolumeThreshold(float val){
+    lowVolumeThreshold = val;
+  }
+  public void setHighVolumeThreshold(float val){
+    highVolumeThreshold = val;
   }
 }
