@@ -70,7 +70,7 @@ void setup()
 
 
   
-/*
+
   dmx = new DMXMode(this, opc);
   String dmxSerialPort = config.getString("dmxSerialPort");
   try {
@@ -81,7 +81,7 @@ void setup()
     println("no dmx interface, forcing auto mode");
     dmx.setMode(1);
   }
-*/
+
   // audio analysis configuration
  
   input = new AudioIn(this);
@@ -112,7 +112,7 @@ void draw() {
   //background(0);
    //fill(140, 200, 255);
    //rect(mouseX, mouseY, 100,100);
-  /*
+  
   if(! dmx.isActive()){
     //colorMode(RGB);
     //dmx.show();
@@ -141,13 +141,10 @@ void draw() {
     println(e.getMessage());
    }
    
-   
+   colorMode(HSB);
    animRunner.run();
-  }*/
-    background(0);
-    td.displayText();
-    return;
-   /*
+  }
+    /*
    colorMode(HSB);
    noStroke();
    if(running){

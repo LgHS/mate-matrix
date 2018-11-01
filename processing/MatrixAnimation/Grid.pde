@@ -3,8 +3,8 @@ class Grid extends AbstractGrid{
     
     pushMatrix();
     translate(x-mm.SPACING, y-mm.SPACING*1.5);
-    
-    if(millis() % 1000 < 400){
+    println(fft.getScaledBand(2));
+    if(fft.getScaledBand(2)>8){
       float posY = mm.SPACING;
       float xOffset = abs(sin(millis()))*8*mm.SPACING;
       //line(mm.SPACING, posY, w*.75, posY );
@@ -23,7 +23,7 @@ class Grid extends AbstractGrid{
   protected void changeDesignElements(){
     strokeWeight(1.5* fft.getScaledBand(6));
     
-    stroke(100+noise(millis()*0.01)*fft.getScaledBand(4)*.5, 255,255);
+    stroke(130+noise(millis()*0.01)*fft.getScaledBand(4)*.5, 255,255);
     
   }
 }

@@ -13,13 +13,14 @@ class AnimationRunner {
   Amplitude ampl;
   FFT fft;
 
-  float lowVolumeThreshold = 47.2;
+  float lowVolumeThreshold = 0.0;
   float highVolumeThreshold = 50.0;
 
   TextDisplayer td;
 
 //  PVector[] blocks = new PVector[]{new PVector(3,3), new PVector(6,3), new PVector(3,3)}
   AnimationRunner(PApplet parent, Amplitude ampl, FFT fft) {
+    anims.add(new Logo(ampl));
     anims.add(new AudioReactiveShader("trippy.glsl", new int[]{4}));
     anims.add(new Grid());
     anims.add(new AudioReactiveShader("discoTunnel.glsl", new int[]{}));
@@ -30,7 +31,7 @@ class AnimationRunner {
     anims.add(new LineAnimation(ampl));
     //anims.add(new BreathingLines(ampl));
     anims.add(new MonjoriShader("monjori.glsl"));
-    // anims.add(new Logo(in));
+    
     anims.add(new CratesAnimation());
     anims.add(new SineWaveShader("sinewave.glsl"));
     // anims.add(new GenericShader("spiral.glsl"));
@@ -47,11 +48,11 @@ class AnimationRunner {
     
     float volume = ampl.analyze()*100;
 
-    
     surface.setTitle("v : "+volume);
     //surface.setTitle(frameRate+"");
     float rnd = random(500);
 
+    noStroke();
     if(volume < lowestVolume  ){
       lowestVolume = volume;
     
@@ -61,7 +62,7 @@ class AnimationRunner {
       // anims.get(5).displayFrame(fft);
       rectMode(CORNER);
       fill(0, 10);
-      noStroke();
+      
       rect(0, 0, width, height);
       
       if( rnd < 3 &&  auto){
@@ -85,6 +86,7 @@ class AnimationRunner {
     } else if(volume > highVolumeThreshold){
         // fill(255*(frameCount%2));
         if(frameCount%2 == 0){
+          globalHue = (globalHue += 5) % 360;
           fill(globalHue, globalSaturation, globalBrightness);
         }else{
           fill(0);

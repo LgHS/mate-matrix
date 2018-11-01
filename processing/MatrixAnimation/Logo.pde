@@ -11,10 +11,10 @@ class Logo implements AudioReactiveAnimationInterface {
   
   
   Logo(Amplitude ampl) {
-    logo = loadImage("fesses.png");
+    logo = loadImage("logoKikk.png");
     this.ampl = ampl;
     
-    pos = new PVector(width/2, height/2);
+    pos = new PVector(width/2, 0+logo.height/2 + 50);
     velocity = new PVector(2,0);
   }
   public void displayFrame(FFT fft) {

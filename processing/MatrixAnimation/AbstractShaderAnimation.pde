@@ -4,10 +4,11 @@ abstract class AbstractShaderAnimation implements AudioReactiveAnimationInterfac
   
   AbstractShaderAnimation(String shaderFile) {
     shader = loadShader(shaderFile);
+    
     pg = createGraphics(width, height, P3D);
   }
   public void displayFrame(FFT fft) {
-
+    imageMode(CORNER);
     shader.set("time", (float) millis()/100.0);
     shader.set("resolution", float(pg.width), float(pg.height));
     setAdditionalParams(fft);
@@ -16,7 +17,7 @@ abstract class AbstractShaderAnimation implements AudioReactiveAnimationInterfac
     pg.rect(0, 0, pg.width, pg.height);
     pg.endDraw();
 
-    image(pg, 0, 0);
+    image(pg, 0, 0, width, height);
   }
 
   protected abstract void setAdditionalParams(FFT fft);
