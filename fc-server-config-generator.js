@@ -13,7 +13,7 @@ let devices = [
   // {serial: "VBNGDLOIKOJQKIPD", type:"fadecandy", groups:8, cratesByGroup: 3, ledByCrate: 20 , colorOrder:"grb" },
   // {serial: "SGCBIMISMMDUMCTF", type:"fadecandy", groups:8, cratesByGroup: 3, ledByCrate: 20 , colorOrder:"grb" },
   { serial: "AOFQFPTBHLLYEYTD", type: "fadecandy", groups: 8, cratesByGroup: 3, ledByCrate: 20, colorOrder: "grb" },
-  { serial: "JXEDMKOUXTBKISFV", type: "fadecandy", groups: 8, cratesByGroup: 3, ledByCrate: 20, colorOrder: "grb" },
+  { serial: "JXEDMKOUXTBKISFV", type: "fadecandy", groups: 4, cratesByGroup: 3, ledByCrate: 20, colorOrder: "grb" },
 
 ];
 let ledOffset = 0;

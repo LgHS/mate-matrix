@@ -123,7 +123,7 @@ void drawButtons() {
   int nbButtons = 3;
   int buttonSize = 120;
   
-  for(int i = 0; i < nbButtons; i++) {
+  for(int i = 0; i < nbButtons; i++) {-
     int yPosition = height / nbButtons * i + height / (nbButtons * 2);
     fill(0, 0, 255, 200);
     noStroke();
