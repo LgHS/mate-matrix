@@ -1,0 +1,38 @@
+{
+  "matrix": {
+    "cols": 6,
+    "rows": 6,
+    "reverse": true,
+    "zigzag": false
+  },
+  "crate": {
+    "rows": 5,
+    "cols": 4
+  },
+  "processing": {
+    "spacing": 20
+  },
+  "opc": [
+    "127.0.0.1",
+    7890
+  ],
+  "fadecandy": {
+    "verbose": true,
+    "color": {
+      "gamma": 2.5,
+      "whitepoint": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "linearCutoff": 0.00390625
+    },
+    "cratesByGroup": 3,
+    "ledOffset": 0,
+    "colorOrder": "grb",
+    "devices": [
+      "AOFQFPTBHLLYEYTD",
+      "JXEDMKOUXTBKISFV"
+    ]
+  }
+}
