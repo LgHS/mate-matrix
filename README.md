@@ -31,8 +31,8 @@ With one main config file you can generate config files for :
 To keep things tidy, put main config in project root
 and generated configs in `config/` folder with prefixes
 (`fc-` for fadecandy and `opc-` for OPC simulator).
-Processing config should go inside `processing/MyProject`
- folder.
+
+Processing config should go inside each sketch data folder.
 
 #### Fadecandy
 
@@ -55,7 +55,7 @@ To generate config for simulator:
 
 Generate config file used by MateMatrix.pde.
 
-_TODO_
+`node generator/processing.js ./my-config.json > processing/MyProjectSketch/data/matrix_config.json`
 
 #### Config reference
 
