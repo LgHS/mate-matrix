@@ -54,13 +54,8 @@ void setup()
   
   // Set up your LED mapping here
   mm = new MateMatrix(this, opc, config);
-  //mm = new MateMatrix(this, opc, config);
-  mm.init(false);
-  //mm.initMultiblock(config);
-  //mm.init();
+  mm.init();
 
-
-  
 
   dmx = new DMXMode(this, opc);
   String dmxSerialPort = config.getString("dmxSerialPort");
@@ -96,9 +91,9 @@ void setup()
 }
 
 void draw() {
-  
   if (isInTestMode) {
     background(0);
+    noStroke();
     fill(140, 200, 255);
     rect(mouseX - 50, mouseY - 50, 100,100);
     return;

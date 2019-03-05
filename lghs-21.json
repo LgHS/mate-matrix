@@ -2,15 +2,7 @@
   "matrix": {
     "cols": 6,
     "rows": 6,
-    "reverse": true,
     "zigzag": false
-  },
-  "crate": {
-    "rows": 5,
-    "cols": 4
-  },
-  "processing": {
-    "spacing": 20
   },
   "opc": [
     "127.0.0.1",
@@ -34,5 +26,18 @@
       "AOFQFPTBHLLYEYTD",
       "JXEDMKOUXTBKISFV"
     ]
+  },
+  "processing": {
+    "spacing": 20,
+    "blocks" : [
+      {"position": "left", "firstLed": 0, "cols": 3, "rows": 3},
+      {"position": "center", "firstLed": 40, "cols": 6, "rows": 3},
+      {"position": "right", "firstLed": 140, "cols": 3, "rows": 3}
+    ],
+    "dmxSerialPort": "/dev/ttyUSB0"
+  },
+  "crate": {
+    "rows": 5,
+    "cols": 4
   }
 }

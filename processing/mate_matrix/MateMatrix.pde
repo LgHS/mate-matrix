@@ -1,3 +1,8 @@
+/**
+* WATCH OUT: this is an old version of the file.
+* Use the template file with JSON config instead.
+**/
+
 class MateMatrix {
 
   private OPC opc;

@@ -10,15 +10,15 @@ abstract class AbstractGrid implements AudioReactiveAnimationInterface{
     colorMode(HSB);
 
 
-    offset  = mm.SPACING/2;
+    offset  = mm.getSpacing() / 2;
     // hook
     changeDesignElements();
 
-    for(int x = 0; x < mm.cols; x++){
-      for(int y = 0; y < mm.rows; y++){
-        float posX = offset+x*mm.CRATE_W*mm.SPACING;
-        float posY = offset*2 + y * mm.CRATE_H*mm.SPACING;
-        drawCrate(posX, posY, (mm.CRATE_W-1)*mm.SPACING+1, (mm.CRATE_H-1)*mm.SPACING+1 );
+    for(int x = 0; x < mm.getCols(); x++){
+      for(int y = 0; y < mm.getRows(); y++){
+        float posX = offset+x*mm.getCrateW() * mm.getSpacing();
+        float posY = offset*2 + y * mm.getCrateH() * mm.getSpacing();
+        drawCrate(posX, posY, (mm.getCrateW() - 1) * mm.getSpacing() + 1, (mm.getCrateH() - 1) * mm.getSpacing() + 1);
       }
 
 

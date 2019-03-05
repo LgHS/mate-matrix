@@ -11,19 +11,21 @@ class CratesAnimation implements AudioReactiveAnimationInterface {
     } else {
       fill(0);
     }
-    int posX = x*mm.SPACING*mm.CRATE_W;
-    int posY = y*mm.SPACING*mm.CRATE_H;
+    int posX = x * mm.getSpacing() * mm.getCrateW();
+    int posY = y*mm.getSpacing() * mm.getCrateH();
     pushMatrix();
     
     translate(posX, posY);
    // rotate(TWO_PI*fft.getBand(400));
     //scale(fft.getBand(200));
     
-    rect(0, 0 , mm.CRATE_W*mm.SPACING, mm.CRATE_H*mm.SPACING);
+    rect(0, 0 , mm.getCrateW() * mm.getSpacing(), mm.getCrateH() * mm.getSpacing());
     popMatrix();
     
-    x++;y++;
-    if(x > mm.cols)x=0;
-    if(y> mm.rows)y=0;
+    x++;
+    y++;
+
+    if (x > mm.getCols()) x=0;
+    if (y> mm.getRows()) y=0;
   }
 }

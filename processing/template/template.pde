@@ -5,12 +5,17 @@ MateMatrix mm;
 
 float t = 0;
 
-int nbCratesX = 6;
-int nbCratesY = 5;
+JSONObject config;
 
-void settings(){
-  int w = nbCratesX * mm.CRATE_W * mm.SPACING;
-  int h = nbCratesY * mm.CRATE_H * mm.SPACING;
+void settings() {
+  config = loadJSONObject("matrix_config.json");
+  int cols = config.getInt("cols");
+  int rows = config.getInt("rows");
+  int crateW = config.getInt("crateW");
+  int crateH = config.getInt("crateH");
+  int spacing = config.getInt("spacing");
+  int w = cols*crateW*spacing;
+  int h  = rows *crateH*spacing;
   size(w,h);
 }
 void setup()
@@ -21,7 +26,7 @@ void setup()
   //opc.setDithering(false);
   //opc.setInterpolation(false);  
   // Set up your LED mapping here
-  mm = new MateMatrix(this, opc, 6, 5);
+  mm = new MateMatrix(this, opc, config);
   mm.init();
   rectMode(CENTER);
   frameRate(200);

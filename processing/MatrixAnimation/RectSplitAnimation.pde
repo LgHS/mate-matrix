@@ -4,7 +4,7 @@ class RectSplitAnimation extends AbstractSplitAnimation implements AudioReactive
   protected float offset;
   RectSplitAnimation(PVector[] blocks){
      this.blocks = blocks;
-     this.offset = mm.SPACING/2;
+     this.offset = mm.getSpacing() / 2;
  }
 
 
@@ -13,17 +13,17 @@ class RectSplitAnimation extends AbstractSplitAnimation implements AudioReactive
     float posX = 0;
     stroke(255);
     noFill();
-    strokeWeight(mm.SPACING*0.75);
+    strokeWeight(mm.getSpacing()*0.75);
 
 
 
     for(int i = 0; i <blocks.length; i++){
         PVector block = blocks[i];
-        float blockW = block.x * mm.CRATE_W * mm.SPACING - mm.SPACING;
-        float blockH = block.y * mm.CRATE_H * mm.SPACING - mm.SPACING;
+        float blockW = block.x * mm.getCrateW() * mm.getSpacing() - mm.getSpacing();
+        float blockH = block.y * mm.getCrateH() * mm.getSpacing() - mm.getSpacing();
 
         drawRect(offset+posX, offset*2, blockW, blockH, fft);
-        posX += block.x * mm.CRATE_W * mm.SPACING;
+        posX += block.x * mm.getCrateW() * mm.getSpacing();
 
 
     }
@@ -43,7 +43,6 @@ class RectSplitAnimation extends AbstractSplitAnimation implements AudioReactive
       stroke(map(w*h, 0, tmpW*tmpH, 0, 260), 255, 255);
 
       rect(0,0,w,h);
-
 
       popMatrix();
       rectMode(CORNER);

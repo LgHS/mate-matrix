@@ -31,6 +31,8 @@ With one main config file you can generate config files for :
 To keep things tidy, put main config in project root
 and generated configs in `config/` folder with prefixes
 (`fc-` for fadecandy and `opc-` for OPC simulator).
+Processing config should go inside `processing/MyProject`
+ folder.
 
 #### Fadecandy
 
@@ -40,7 +42,14 @@ and generated configs in `config/` folder with prefixes
 
 Use with Open Pixel Control OpenGL viewer (Linux or OSX only).
 
+To build and run simulator, see README in [OPC repo](https://github.com/zestyping/openpixelcontrol)
+
+To generate config for simulator:
+
 `node generator/opc-simulator.js my-config.json > config/opc-myconfig.json`
+
+**Note**: looks like it doesn't work on Linux anymore :(
+[More info here](https://groups.google.com/d/topic/fadecandy/aKD9_kCoYDc/discussion)
 
 #### Processing
 
@@ -55,17 +64,9 @@ Remove comments before use.
 ```json
 {
   "matrix": {
-    "cols": 6, // number of crates horizontally
-    "rows": 6, // number of crates vertically
-    "reverse": true, // wiring starts at top right ?
-    "zigzag": false // wiring is zig-zaging ?
-  },
-  "crate": {
-    "rows": 5, // number of bottles per crate horizontally
-    "cols": 4 // number of bottles per crate vertically
-  },
-  "processing": {
-    "spacing": 20
+    "cols": 6,
+    "rows": 6,
+    "zigzag": false
   },
   "opc": [
     "127.0.0.1",
@@ -85,10 +86,23 @@ Remove comments before use.
     "cratesByGroup": 3,
     "ledOffset": 0,
     "colorOrder": "grb",
-    "devices": [ // serial numbers
+    "devices": [
       "AOFQFPTBHLLYEYTD",
       "JXEDMKOUXTBKISFV"
     ]
+  },
+  "processing": {
+    "spacing": 20,
+    "blocks" : [
+      {"position": "left", "firstLed": 0, "cols": 3, "rows": 3},
+      {"position": "center", "firstLed": 40, "cols": 6, "rows": 3},
+      {"position": "right", "firstLed": 140, "cols": 3, "rows": 3}
+    ],
+    "dmxSerialPort": "/dev/ttyUSB0"
+  },
+  "crate": {
+    "rows": 5,
+    "cols": 4
   }
 }
 ```
