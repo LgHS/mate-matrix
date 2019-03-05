@@ -9,6 +9,8 @@ const totalCols = config.matrix.cols * config.crate.cols;
 const totalRows = config.matrix.rows * config.crate.rows;
 
 const spacing = -1 / 4;
+const centerX = totalCols * spacing  / 2.0;
+const centerY = totalRows * spacing / 2.0;
 
 let output = [];
 
@@ -22,7 +24,7 @@ for (let crateY = 0; crateY < config.matrix.rows; crateY++) {
         const indexY = posY + ledY;
         const normalizedX = (indexX / totalCols) + (spacing * indexX);
         const normalizedY = (indexY / totalRows) + (spacing * indexY);
-        output.push({ "point": [(totalRows * spacing) - normalizedX, 0, (totalCols * spacing) - normalizedY] });
+        output.push({ "point": [normalizedX-centerX, 0, normalizedY-centerY] });
       }
     }
   }
