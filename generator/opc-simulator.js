@@ -13,11 +13,13 @@ const spacing = -1 / 4;
 let output = [];
 
 for (let crateY = 0; crateY < config.matrix.rows; crateY++) {
+  const posY = crateY * config.crate.rows;
   for (let crateX = 0; crateX < config.matrix.cols; crateX++) {
+    const posX = crateX * config.crate.cols;
     for (let ledY = 0; ledY < config.crate.rows; ledY++) {
       for (let ledX = 0; ledX < config.crate.cols; ledX++) {
-        const indexX = crateX * config.crate.cols + ledX;
-        const indexY = crateY * config.crate.rows + ledY;
+        const indexX = (ledY%2==1)?  posX + config.crate.cols-1 - ledX : posX  + ledX;
+        const indexY = posY + ledY;
         const normalizedX = (indexX / totalCols) + (spacing * indexX);
         const normalizedY = (indexY / totalRows) + (spacing * indexY);
         output.push({ "point": [(totalRows * spacing) - normalizedX, 0, (totalCols * spacing) - normalizedY] });
