@@ -34,13 +34,13 @@ and generated configs in `config/` folder with prefixes
 
 #### Fadecandy
 
-`node generator/fadecandy.js my-config.json > config/fc-config-my.json`
+`node generator/fadecandy.js my-config.json > config/fc-myconfig.json`
 
 #### OPC Simulator
 
 Use with Open Pixel Control OpenGL viewer (Linux or OSX only).
 
-_TODO_
+`node generator/opc-simulator.js my-config.json > config/opc-myconfig.json`
 
 #### Processing
 

@@ -21,6 +21,8 @@ DMXMode dmx;
 
 static final int CRATES = 30;
 
+boolean isInTestMode = false;
+
 MateMatrix mm;
 JSONObject config;
 
@@ -53,7 +55,7 @@ void setup()
   // Set up your LED mapping here
   mm = new MateMatrix(this, opc, config);
   //mm = new MateMatrix(this, opc, config);
-  mm.initMicroFest();
+  mm.init(false);
   //mm.initMultiblock(config);
   //mm.init();
 
@@ -95,10 +97,13 @@ void setup()
 
 void draw() {
   
-  //background(0);
-   //fill(140, 200, 255);
-   //rect(mouseX, mouseY, 100,100);
-  //*
+  if (isInTestMode) {
+    background(0);
+    fill(140, 200, 255);
+    rect(mouseX - 50, mouseY - 50, 100,100);
+    return;
+  }
+
   if(! dmx.isActive()){
     //colorMode(RGB);
     //dmx.show();
@@ -164,5 +169,8 @@ void keyPressed() {
   }
   if (key == 'a' || key == 'A') {
     animRunner.toggleAutoMode();
+  }
+  if (key == 't' || key == 'T') {
+    isInTestMode = !isInTestMode;
   }
 }

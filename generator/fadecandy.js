@@ -16,11 +16,11 @@ let output = {
 
 const calculateGroups = (index) => {
   const maxGroupsByDevice = 8;
-  const totalGroups = parseInt(crates / config.fadecandy.cratesByGroup);
+  const totalGroups = Math.ceil(crates / config.fadecandy.cratesByGroup);
   if ((index + 1) * maxGroupsByDevice < totalGroups) {
     return maxGroupsByDevice;
   } else {
-    return totalGroups % maxGroupsByDevice;
+    return crates % maxGroupsByDevice;
   }
 };
 

@@ -48,7 +48,7 @@ class MateMatrix {
   }
 
   public void init(){
-    init(false, false);
+    init(false);
   }
   
   /**
@@ -58,7 +58,7 @@ class MateMatrix {
     * @param boolean zigzag agencement of the crates (true : one row left to right and the other right to left)
     * 
    **/ 
-  public void init(boolean zigzag, boolean reverse) {
+  public void init(boolean zigzag) {
 
     crateWidth = SPACING * 4;
 
@@ -74,15 +74,9 @@ class MateMatrix {
           }
         }
         
-        if (reverse) {
-          float posX = applet.width - (offset + crateWidth * x);
-        } else {
-          float posX = offset + crateWidth * x;
-        }
+        float posX = offset + crateWidth * x;
        
         opc.ledGrid(index, CRATE_W, CRATE_H, posX, posY, SPACING, SPACING, 0, true, false);
-       // do I need to change last param (flip) ?
-        //opc.ledGrid(index, CRATE_W, CRATE_H, posX, posY, SPACING, SPACING, 0, true, reverse);
       }
 
       // println();

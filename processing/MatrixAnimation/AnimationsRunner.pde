@@ -24,7 +24,7 @@ class AnimationRunner {
     anims.add(new SineWaveShader("sinewave.glsl"));
     anims.add(new GenericShader("spiral.glsl"));
     anims.add(new AudioReactiveShader("sinewave2.glsl", new int[]{2}));
-    
+
     // TODO : retrieve blocks configuration from json file
     anims.add(new RectSplitAnimation(new PVector[]{new PVector(2,5), new PVector(3,5), new PVector(2,5)}));
     this.ampl = ampl;
