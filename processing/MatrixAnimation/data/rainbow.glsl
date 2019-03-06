@@ -1,6 +1,10 @@
 // stolen from Akufishi on ShaderToy https://www.shadertoy.com/view/lscBRf 
 // adapted to Procesing by gberger
 
+#ifdef GL_ES
+precision highp float;
+#endif
+
 #define FALLING_SPEED  0.05
 #define STRIPES_FACTOR 35.0
 
@@ -28,7 +32,7 @@ void main(void)
     //create stripes
     vec3 col        = vec3(1.0 - mod(uv.y * 0.5 + (t * (FALLING_SPEED + value / 5.0)) + value, 0.5));
     //add color
-         col       *= clamp(cos(t*0.3 /** 2.0 */ + uv.xyx + vec3(0, 2, 4*freq1)), 0.0, 1.0);
+         col       *= clamp(cos(t*0.3 /** 2.0 */ + uv.xyx + vec3(0., 2., 4.*freq1)), 0.0, 1.0);
     //add glowing ends
     	 col 	   += vec3(sphere(gl_FragCoord.xy, 
                                   vec2(clamped_uv.x, (1.0 - 2.0 * mod((t * (FALLING_SPEED + value / 5.0)) + value, 0.5))) * resolution.xy, 

@@ -3,7 +3,7 @@
 #define PI 3.14159265359
 
 #ifdef GL_ES
-precision mediump float
+precision mediump float;
 #endif
 
 uniform float time;

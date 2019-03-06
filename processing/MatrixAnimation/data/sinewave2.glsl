@@ -1,5 +1,9 @@
 #define PROCESSING_COLOR_SHADER
 
+#ifdef GL_ES
+precision highp float;
+#endif
+
 uniform float time;
 uniform vec2 resolution;
 uniform float freq0;
@@ -9,7 +13,7 @@ void main( void ) {
 
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
 	uv = uv * 2. -1.;
-	float val = freq0 * 905;
+	float val = freq0 * 905.;
     // Time varying pixel color
     //vec3 col = 0.5 + 0.5*cos(time+uv.xyx+vec3(0,2,4));
      vec3 col = vec3(0.);
