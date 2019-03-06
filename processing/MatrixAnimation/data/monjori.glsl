@@ -1,3 +1,7 @@
+#ifdef GL_ES
+precision highp float;
+#endif
+
 uniform vec2 resolution;
 uniform float time;
 uniform float graininess;

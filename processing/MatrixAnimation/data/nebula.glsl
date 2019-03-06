@@ -1,5 +1,9 @@
 #define PROCESSING_COLOR_SHADER
 
+#ifdef GL_ES
+precision highp float;
+#endif
+
 uniform float time;
 uniform vec2 resolution;
 uniform float freq0;
