@@ -1,0 +1,32 @@
+{
+  "fcAddress": "127.0.0.1",
+  "nbCrates": 36,
+  "spacing": 20,
+  "pixelsPerCrate": 20,
+  "crateH": 5,
+  "crateW": 4,
+  "cols": 6,
+  "rows": 6,
+  "zigzag": false,
+  "blocks": [
+    {
+      "position": "left",
+      "firstLed": 0,
+      "cols": 3,
+      "rows": 3
+    },
+    {
+      "position": "center",
+      "firstLed": 40,
+      "cols": 6,
+      "rows": 3
+    },
+    {
+      "position": "right",
+      "firstLed": 140,
+      "cols": 3,
+      "rows": 3
+    }
+  ],
+  "dmxSerialPort": "/dev/ttyUSB0"
+}

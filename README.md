@@ -55,7 +55,7 @@ To generate config for simulator:
 
 Generate config file used by MateMatrix.pde.
 
-`node generator/processing.js ./my-config.json > processing/MyProjectSketch/data/matrix_config.json`
+`node generator/processing.js ./my-config.json > src/processing/MyProjectSketch/data/matrix_config.json`
 
 #### Config reference
 

@@ -45,6 +45,7 @@ void settings(){
 void setup()
 {
   // size(480, 500, P3D);
+  //opc = new OPC(this, "192.168.42.124", 7890);
   opc = new OPC(this, "127.0.0.1", 7890);
   // opc.setPixelCount(6*6*20);
   // pixelDensity(2);

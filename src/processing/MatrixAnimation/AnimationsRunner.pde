@@ -35,9 +35,9 @@ class AnimationRunner {
   public void run() {
     float volume = ampl.analyze();
 
-    if (volume < 0.06) {
-      anims.get(5).displayFrame(fft);
-    } else {
+    //if (volume < 0.06) {
+      //anims.get(5).displayFrame(fft);
+    //} else {
       fft.analyze();
       anims.get(animIndex).displayFrame(fft);
 
@@ -47,7 +47,7 @@ class AnimationRunner {
           animIndex = int(random(0, anims.size()));
         }
       }
-    }
+    //}
   }
   // xxx duration should be in the Animation class
   private int getDuration() {

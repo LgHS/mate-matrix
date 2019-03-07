@@ -8,7 +8,7 @@ const ledsByCrate = config.crate.rows * config.crate.cols;
 const totalCols = config.matrix.cols * config.crate.cols;
 const totalRows = config.matrix.rows * config.crate.rows;
 
-const spacing = -1 / 4;
+const spacing = -0.15;
 const centerX = totalCols * spacing  / 2.0;
 const centerY = totalRows * spacing / 2.0;
 

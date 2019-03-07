@@ -1,0 +1,8 @@
+{
+  "name": "p5",
+  "projects": [
+    "test-rectangle",
+    "webcam",
+    "shaders"
+  ]
+}
