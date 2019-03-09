@@ -3,6 +3,7 @@
   "projects": [
     "test-rectangle",
     "webcam",
-    "shaders"
+    "shaders",
+    "tenor-gif"
   ]
 }
