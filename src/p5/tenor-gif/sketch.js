@@ -62,7 +62,7 @@ function setup() {
 		btn.position(width/2, height/2+40);
 		btn.mousePressed(setApiKey);
 		
-		print("Please insert your Api key in the url parameter giphyKey");	
+		print("Please insert your Api key in the url parameter apiKey");	
 	}
 }
 
