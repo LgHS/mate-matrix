@@ -73,18 +73,9 @@ public class CameraEffect : PixelEffect
                     Color.RGBToHSV(pixel, out float H, out float S, out float V);
 
                     pixelsList[zigZagPos] = new Pixel((byte)pixel.r, (byte)pixel.g, (byte)pixel.b);
-
                 }
             }
 
-            //for (int i = 0; i <= 360; i = i + 5)
-            //{
-            //    var color = new HSLColor(hue: i, saturation: 100, luminosity: 100);
-            //    pixels.AddFirst(color.ToRgbPixel());
-            //    client.putPixels(pixels);
-            //}
-
-            //pixels.
             client.putPixels(pixelsList);
 
             yield return new WaitForSeconds(Delay);
