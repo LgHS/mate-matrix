@@ -72,6 +72,14 @@ public class CameraEffect : PixelEffect
 
                     Color.RGBToHSV(pixel, out float H, out float S, out float V);
 
+                    // Source: https://stackoverflow.com/a/31322679/1524913
+                    // HSV is the same as HSB
+                    //
+                    //
+                    // L = (2 - SB.s) * SB.b / 2;
+                    float luminosity = (2 - S) * V / 2;
+
+                    // pixelsList[zigZagPos] = new HSLColor(hue: H, saturation: S, luminosity: luminosity*100).ToRgbPixel();
                     pixelsList[zigZagPos] = new Pixel((byte)pixel.r, (byte)pixel.g, (byte)pixel.b);
                 }
             }
