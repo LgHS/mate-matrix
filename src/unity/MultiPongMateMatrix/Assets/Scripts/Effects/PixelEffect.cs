@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class PixelEffect : MonoBehaviour
 {
-    public abstract IEnumerator Effect(Client client, PixelStrip pixels, float delay);
+    public abstract IEnumerator Effect(Client client, float delay);
 
 }

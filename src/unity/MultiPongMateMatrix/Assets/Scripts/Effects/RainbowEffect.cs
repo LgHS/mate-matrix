@@ -9,11 +9,13 @@ public class RainbowEffect : PixelEffect
 {
     [Header("Provided by " + nameof(Main))]
     public float Delay;
+    public int BufferSize = 30;
 
-    public override IEnumerator Effect(Client client, PixelStrip pixels, float delay)
+    public override IEnumerator Effect(Client client, float delay)
     {
         // So it can modified during runtime.
         Delay = delay;
+        PixelStrip pixels = new PixelStrip(BufferSize);
 
         while (true)
         {

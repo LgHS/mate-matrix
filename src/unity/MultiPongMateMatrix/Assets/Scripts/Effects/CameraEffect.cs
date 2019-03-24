@@ -16,10 +16,11 @@ public class CameraEffect : PixelEffect
     [Header("Dynamic")]
     public Texture2D ResizedTexture;
 
-    public override IEnumerator Effect(Client client, PixelStrip pixels, float delay)
+    public override IEnumerator Effect(Client client, float delay)
     {
         // So it can modified during runtime.
         Delay = delay;
+        Grid.InitMatrix();
 
         yield return new WaitForEndOfFrame();
 
@@ -28,63 +29,33 @@ public class CameraEffect : PixelEffect
         int width = ResizedTexture.width;
         int height = ResizedTexture.height;
 
-        var pixelsList = new List<Pixel>();
-
-        for (int i = 0; i < width * height; i++)
-        {
-            pixelsList.Add(new Pixel(default, default, default));
-        }
-
         while (true)
         {
             yield return new WaitForEndOfFrame();
 
             ReadPixels();
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Grid.GetHeight(); y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < Grid.GetWidth(); x++)
                 {
-                    Color pixel = ResizedTexture.GetPixel(x, y);
+                    int posX = x * (width / Grid.GetWidth());
+                    int posY = y * (height / Grid.GetHeight());
+                    Color color = ResizedTexture.GetPixel(posX, posY);
 
-                    var cratePos = new Vector2Int(
-                        x / Grid.CrateSize.x,
-                        Grid.CrateSize.y - y / Grid.CrateSize.y
-                    );
-
-                    int crateWidth = Grid.CrateSize.x;
-                    int crateHeight = Grid.CrateSize.y;
-
-                    var posInCrate = new Vector2Int(
-                        x - crateWidth * cratePos.x,
-                        y - crateHeight * cratePos.y
-                    );
-
-                    // The effective X is shifted one row on two because we zig zag down
-
-                    int effectiveX = posInCrate.y % 2 == 0 ? posInCrate.x : crateWidth - posInCrate.x;
-                    int zigZagPosInCrate = posInCrate.y * crateWidth + effectiveX;
-
-                    int ledsPerCrate = crateWidth * crateHeight;
-                    int ledsPerRow = ledsPerCrate * Grid.GridSize.x;
-
-                    int zigZagPos = ledsPerRow * cratePos.y + cratePos.x * ledsPerCrate + zigZagPosInCrate;
-
-                    Color.RGBToHSV(pixel, out float H, out float S, out float V);
+                    Color.RGBToHSV(color, out float H, out float S, out float V);
 
                     // Source: https://stackoverflow.com/a/31322679/1524913
                     // HSV is the same as HSB
-                    //
-                    //
                     // L = (2 - SB.s) * SB.b / 2;
                     float luminosity = (2 - S) * V / 2;
 
-                    // pixelsList[zigZagPos] = new HSLColor(hue: H, saturation: S, luminosity: luminosity*100).ToRgbPixel();
-                    pixelsList[zigZagPos] = new Pixel((byte)pixel.r, (byte)pixel.g, (byte)pixel.b);
+                    Pixel pixel = new HSLColor(hue: H * 240, saturation: S*240, luminosity: luminosity*240).ToRgbPixel();
+                    Grid.SetPixelAt(pixel, x, y);
                 }
             }
 
-            client.putPixels(pixelsList);
+            client.putPixels(Grid.GetPixels());
 
             yield return new WaitForSeconds(Delay);
         }
@@ -120,13 +91,15 @@ public class CameraEffect : PixelEffect
         RenderTexture.active = (RenderTexture)Texture;
         text2d.ReadPixels(new Rect(0, 0, width, height), 0, 0);
 
+        return text2d;
+
         text2d.Apply();
 
         return ResizeTexture(
             text2d,
             ImageFilterMode.Average,
-            // (float)Grid.GetWidth() / Texture.width
-            (float)Grid.GetHeight() / Texture.height
+            (float)Grid.GetWidth() / Texture.width
+//            (float)Grid.GetHeight() / Texture.height
         );
     }
 

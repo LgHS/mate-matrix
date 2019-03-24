@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -258,10 +258,38 @@ PrefabInstance:
         type: 3}
       propertyPath: PixelEffect
       value: 
-      objectReference: {fileID: 1928343357}
+      objectReference: {fileID: 1704505512}
+    - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
+      propertyPath: soloPixel.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
+      propertyPath: loopThroughGrid
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
+      propertyPath: Delay
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
+      propertyPath: Grid.CrateSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
+      propertyPath: Grid.CrateSize.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
+      propertyPath: Grid.GridSize.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
+      propertyPath: Grid.GridSize.y
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d68ce535428187740b8328553e437984, type: 3}
---- !u!114 &1928343357 stripped
+--- !u!114 &1704505512 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1934901358893734119, guid: d68ce535428187740b8328553e437984,
     type: 3}
