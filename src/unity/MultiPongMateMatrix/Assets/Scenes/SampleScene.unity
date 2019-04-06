@@ -259,6 +259,16 @@ PrefabInstance:
       propertyPath: PixelEffect
       value: 
       objectReference: {fileID: 1704505512}
+    - target: {fileID: 1624697022803715565, guid: d68ce535428187740b8328553e437984,
+        type: 3}
+      propertyPath: Ip
+      value: 192.168.42.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1624697022803715565, guid: d68ce535428187740b8328553e437984,
+        type: 3}
+      propertyPath: Delay
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
       propertyPath: soloPixel.x
       value: 4
