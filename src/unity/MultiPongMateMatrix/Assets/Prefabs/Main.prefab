@@ -1,23 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1704505509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 884853066765639488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9556e2011828436f85a899e784af56ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Delay: 0
-  Grid:
-    CrateSize: {x: 4, y: 5}
-    GridSize: {x: 6, y: 6}
-  loopThroughGrid: 0
-  soloPixel: {x: 0, y: 0}
 --- !u!1001 &3333732942043226725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39,7 +21,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PixelEffect
       value: 
-      objectReference: {fileID: 1704505509}
+      objectReference: {fileID: 0}
     - target: {fileID: 4093729348456581000, guid: 6ebc1f563f2d03c429a63cc7fb615063,
         type: 3}
       propertyPath: Delay
@@ -102,9 +84,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ebc1f563f2d03c429a63cc7fb615063, type: 3}
---- !u!1 &884853066765639488 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2451204355080731941, guid: 6ebc1f563f2d03c429a63cc7fb615063,
-    type: 3}
-  m_PrefabInstance: {fileID: 3333732942043226725}
-  m_PrefabAsset: {fileID: 0}

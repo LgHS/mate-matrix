@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -258,7 +258,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PixelEffect
       value: 
-      objectReference: {fileID: 1704505512}
+      objectReference: {fileID: 699224049}
     - target: {fileID: 1624697022803715565, guid: d68ce535428187740b8328553e437984,
         type: 3}
       propertyPath: Ip
@@ -269,6 +269,11 @@ PrefabInstance:
       propertyPath: Delay
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 1624697022803715565, guid: d68ce535428187740b8328553e437984,
+        type: 3}
+      propertyPath: Effect
+      value: 
+      objectReference: {fileID: 699224049}
     - target: {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
       propertyPath: soloPixel.x
       value: 4
@@ -297,18 +302,19 @@ PrefabInstance:
       propertyPath: Grid.GridSize.y
       value: 6
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1704505509, guid: d68ce535428187740b8328553e437984, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d68ce535428187740b8328553e437984, type: 3}
---- !u!114 &1704505512 stripped
+--- !u!114 &699224049 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1934901358893734119, guid: d68ce535428187740b8328553e437984,
+  m_CorrespondingSourceObject: {fileID: 343914933792436253, guid: d68ce535428187740b8328553e437984,
     type: 3}
   m_PrefabInstance: {fileID: 699224048}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e7b5c151b239548bac3c924d36ee90, type: 3}
+  m_Script: {fileID: 11500000, guid: 52420ed919e06ce42b2ba30983861035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &253608727198991462
