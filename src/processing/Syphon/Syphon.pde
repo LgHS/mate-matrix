@@ -17,7 +17,7 @@ void settings() {
   int spacing = config.getInt("spacing");
   int w = cols*crateW*spacing;
   int h  = rows *crateH*spacing;
-  size(w,h,P3D);
+  size(w, h, P3D);
 }
 
 void setup() {
@@ -27,7 +27,7 @@ void setup() {
   client = new SyphonClient(this);
 
   colorMode(HSB);
-  background(255,0,0);
+  background(255, 0, 0);
 }
 
 void setupMateMatrix() {
@@ -38,16 +38,24 @@ void setupMateMatrix() {
 }
 
 void draw() {
-  background(200);
   /*
-  if (client.newFrame()) {
+  background(255);
+  fill(0);
+  rect(mouseX-150, mouseY-50, 300, 100);
+  */
+  try {
     background(0);
     canvas = client.getGraphics(canvas);
     image(canvas, 0, 0, width, height);
-  }*/
+    } catch(Exception e) {
+
+    }
 }
 
 void stop() {
   background(0);
   super.stop();
+}
+
+void mousePressed() {
 }

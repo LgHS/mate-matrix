@@ -31,7 +31,7 @@ AnimationRunner animRunner;
 // byte[] colors = new byte[CRATES];
 
 void settings(){
-  config = loadJSONObject("matrix_config.json");
+  config = loadJSONObject("matrix_config_micro-2.json");
   int cols = config.getInt("cols");
   int rows = config.getInt("rows");
   int crateW = config.getInt("crateW");

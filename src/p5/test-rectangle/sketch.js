@@ -2,7 +2,7 @@ var config;
 var showPixelLocations = true;
 
 function preload() {
-  config = loadJSON('/libraries/matrix_config.json');
+  config = loadJSON('/libraries/matrix_config_micro.json');
 }
 
 function setup() {
