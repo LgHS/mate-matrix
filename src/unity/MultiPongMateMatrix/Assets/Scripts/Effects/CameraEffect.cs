@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public class CameraEffect : PixelEffect
@@ -21,7 +22,7 @@ public class CameraEffect : PixelEffect
         // So it can modified during runtime.
         Delay = delay;
         Grid.InitMatrix();
-
+        
         yield return new WaitForEndOfFrame();
 
         ReadPixels();
