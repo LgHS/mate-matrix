@@ -22,60 +22,50 @@ public class Syphon extends PApplet {
 
 
 
+MateMatrix mm;
+JSONObject config;
 OPC opc;
 SyphonClient client;
 
 PGraphics canvas;
 
-float spin = 0.001f;
-float radiansPerBucket = radians(2);
-float decay = 0.97f;
-float opacity = 50;
-float minSize = 0.1f;
-float sizeScale = 0.6f;
-PImage colors;
-
-int posX=51, posY;
-int speedX = 20;
-int speedY  = 5;
-int c = 0;
-float spacing;
-int offset;
+public void settings() {
+  config = loadJSONObject("matrix_config.json");
+  int cols = config.getInt("cols");
+  int rows = config.getInt("rows");
+  int crateW = config.getInt("crateW");
+  int crateH = config.getInt("crateH");
+  int spacing = config.getInt("spacing");
+  int w = cols*crateW*spacing;
+  int h  = rows *crateH*spacing;
+  size(w,h,P3D);
+}
 
 public void setup() {
-  
-  frameRate(30);
-  colors = loadImage("colors.png");
+  frameRate(60);
   setupMateMatrix();
-
-  println("Available Syphon servers:");
-  println(SyphonClient.listServers());
 
   client = new SyphonClient(this);
 
   colorMode(HSB);
-  background(0);
+  background(255,0,0);
 }
 
 public void setupMateMatrix() {
   opc = new OPC(this, "127.0.0.1", 7890);
-}
 
-public void mousePressed() {
-  opc.setStatusLed(true);
-  background(0);
-}
-
-public void mouseReleased() {
-  opc.setStatusLed(false);
+  mm = new MateMatrix(this, opc, config);
+  mm.init();
 }
 
 public void draw() {
+  background(200);
+  /*
   if (client.newFrame()) {
     background(0);
     canvas = client.getGraphics(canvas);
     image(canvas, 0, 0, width, height);
-  }
+  }*/
 }
 
 public void stop() {
@@ -557,7 +547,6 @@ public class OPC implements Runnable
     }
   }
 }
-  public void settings() {  size(480, 400, P3D); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Syphon" };
     if (passedArgs != null) {

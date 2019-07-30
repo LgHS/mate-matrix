@@ -1,5 +1,5 @@
 {
-  "fcAddress": "192.168.42.125",
+  "fcAddress": "127.0.0.1",
   "nbCrates": 36,
   "spacing": 20,
   "pixelsPerCrate": 20,

@@ -46,13 +46,13 @@ void setup()
 {
   // size(480, 500, P3D);
   //opc = new OPC(this, "192.168.42.124", 7890);
-  opc = new OPC(this, "192.168.42.99", 7890);
+  opc = new OPC(this, "127.0.0.1", 7890);
   // opc.setPixelCount(6*6*20);
   // pixelDensity(2);
   println(Serial.list());
   colorMode(HSB);
 
-  
+
   // Set up your LED mapping here
   mm = new MateMatrix(this, opc, config);
   mm.init();
@@ -70,22 +70,22 @@ void setup()
   }
 
   // audio analysis configuration
- 
+
   input = new AudioIn(this);
   // input.amp(1.0);
   input.start();
-  try{ 
+  try{
     fft = new FFT(this, bands);
     fft.input(input);
-  
+
     amplitude = new Amplitude(this);
     amplitude.input(input);
-  
+
   }catch(RuntimeException e){
     println("a problem occured during the initialisation of audio device");
     println(e.getMessage());
   }
-  
+
 
   // animation runner
   animRunner = new AnimationRunner(amplitude, fft);
@@ -103,11 +103,11 @@ void draw() {
   if(! dmx.isActive()){
     //colorMode(RGB);
     //dmx.show();
-    
+
     //opc.pixelLocations = null;
     background(0);
     noStroke();
-    
+
    }else{
     colorMode(HSB);
     if(opc.pixelLocations == null){
@@ -125,11 +125,11 @@ void draw() {
      println("error 2");
     println(e.getMessage());
    }
-   
-   
+
+
    animRunner.run();
    }
-   
+
    //*/
 }
 
