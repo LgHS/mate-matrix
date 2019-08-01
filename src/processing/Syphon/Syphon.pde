@@ -18,6 +18,7 @@ void settings() {
   int w = cols*crateW*spacing;
   int h  = rows *crateH*spacing;
   size(w, h, P3D);
+  print(w, h);
 }
 
 void setup() {
@@ -34,22 +35,31 @@ void setupMateMatrix() {
   opc = new OPC(this, "127.0.0.1", 7890);
 
   mm = new MateMatrix(this, opc, config);
-  mm.init();
+  mm.initMultiblock();
 }
 
+
+float theta = 0.0;
 void draw() {
   /*
-  background(255);
+  float x = (sin(theta) + 1);
+
+  background(200, 100, 100);
   fill(0);
-  rect(mouseX-150, mouseY-50, 300, 100);
+  rect(x * width/2, 0, 50, height);
+  theta += 0.05;
   */
+  background(0);
+  fill(255);
+  rect(mouseX-50, mouseY-50, 100, 100);
+  /*
   try {
     background(0);
     canvas = client.getGraphics(canvas);
     image(canvas, 0, 0, width, height);
-    } catch(Exception e) {
+  } catch(Exception e) {
 
-    }
+  }*/
 }
 
 void stop() {

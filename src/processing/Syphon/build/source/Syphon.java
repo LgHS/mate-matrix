@@ -55,22 +55,31 @@ public void setupMateMatrix() {
   opc = new OPC(this, "127.0.0.1", 7890);
 
   mm = new MateMatrix(this, opc, config);
-  mm.init();
+  mm.initMultiblock();
 }
 
+
+float theta = 0.0f;
 public void draw() {
   /*
-  background(255);
+  float x = (sin(theta) + 1);
+
+  background(200, 100, 100);
   fill(0);
-  rect(mouseX-150, mouseY-50, 300, 100);
+  rect(x * width/2, 0, 50, height);
+  theta += 0.05;
   */
+  background(0);
+  fill(255);
+  rect(mouseX-50, mouseY-50, 100, 100);
+  /*
   try {
     background(0);
     canvas = client.getGraphics(canvas);
     image(canvas, 0, 0, width, height);
-    } catch(Exception e) {
+  } catch(Exception e) {
 
-    }
+  }*/
 }
 
 public void stop() {
@@ -106,10 +115,13 @@ class MateMatrix {
   private int rows;
   private int cols;
   private boolean zigzag;
+  private JSONObject config;
 
-  public MateMatrix(PApplet applet, OPC opc, JSONObject config){
+  public MateMatrix(PApplet applet, OPC opc, JSONObject _config){
     this.opc = opc;
     this.applet = applet;
+
+    config = _config;
 
     spacing = config.getInt("spacing");
     nbCrates = config.getInt("nbCrates");
@@ -126,24 +138,63 @@ class MateMatrix {
   }
 
   public void init() {
+    init(0, 0, cols);
+  }
+
+  public void init(int index, int offsetX, int _cols) {
     for (int y = 0; y < rows; y++) {
       // in OPC led grids position x,y are their centers. We have to distribute centers over the height of the sketch
       float posY = applet.height / 2 + (spacing * crateH/2 * (-(rows-1) + y * 2));
 
-      for (int x = 0; x < cols; x++) {
-        int index = y * cols * pixelsPerCrate + x * pixelsPerCrate;
+      for (int x = 0; x < _cols; x++) {
+        int index = y * _cols * pixelsPerCrate + x * pixelsPerCrate;
         if (zigzag) {
           if (y % 2 == 1){
-            index = (y + 1) * cols * pixelsPerCrate - (x+1) * pixelsPerCrate;
+            index = (y + 1) * _cols * pixelsPerCrate - (x+1) * pixelsPerCrate;
           }
         }
 
-        float posX = offset + crateWidth * x;
+        float posX = (crateWidth * offsetX) + offset + crateWidth * x;
 
         opc.ledGrid(index, crateW, crateH, posX, posY, spacing, spacing, 0, true, false);
       }
     }
     enabled = true;
+  }
+
+  public void initMultiblock() {
+   JSONArray blocks = config.getJSONArray("blocks");
+   //int index = 0;
+   for(int i = 0; i < blocks.size(); i++){
+       float gap = 0;
+
+       JSONObject block = blocks.getJSONObject(i);
+       int blockRows = block.getInt("rows");
+       int blocCols = block.getInt("cols");
+       int offsetX = blocCols * i;
+       int ledIndex = blockRows * blocCols * i;
+
+       init(ledIndex, offsetX, blocCols);
+       /*for(int y = 0; y < rows; i ++ ){
+         float posY;
+          posY = crateHeight * rows / 2 + (crateHeight/2 * (-(rows-1) + y * 2));
+         for(int x = 0; x < cols; x++ ){
+           float posX = crateWidth/2 + crateWidth * x;
+            if(i==1){
+               posX = width - cols*crateWidth + x * crateWidth;
+
+            }
+
+            opc.ledGrid(index, crateWidth, crateHeight, posX, posY, spacing, spacing, 0, true, false);
+
+            index+=20;
+
+
+         }
+       }*/
+   }
+
+   printArray(opc.pixelLocations);
   }
 
 
@@ -219,7 +270,7 @@ public class OPC implements Runnable
   }
 
   // Set the location of a single LED
-  public void led(int index, int x, int y)  
+  public void led(int index, int x, int y)
   {
     // For convenience, automatically grow the pixelLocations array. We do want this to be an array,
     // instead of a HashMap, to keep draw() as fast as it can be.
@@ -231,7 +282,7 @@ public class OPC implements Runnable
 
     pixelLocations[index] = x + width * y;
   }
-  
+
   // Set the location of several LEDs arranged in a strip.
   // Angle is in radians, measured clockwise from +X.
   // (x,y) is the center of the strip.
@@ -291,7 +342,7 @@ public class OPC implements Runnable
   {
     enableShowLocations = enabled;
   }
-  
+
   // Enable or disable dithering. Dithering avoids the "stair-stepping" artifact and increases color
   // resolution by quickly jittering between adjacent 8-bit brightness levels about 400 times a second.
   // Dithering is on by default.
@@ -322,7 +373,7 @@ public class OPC implements Runnable
   {
     firmwareConfig &= 0x0C;
     sendFirmwareConfigPacket();
-  }    
+  }
 
   // Manually turn the Fadecandy onboard LED on or off. This disables automatic LED control.
   public void setStatusLed(boolean on)
@@ -333,7 +384,7 @@ public class OPC implements Runnable
     else
       firmwareConfig &= ~0x08;
     sendFirmwareConfigPacket();
-  } 
+  }
 
   // Set the color correction parameters
   public void setColorCorrection(float gamma, float red, float green, float blue)
@@ -341,7 +392,7 @@ public class OPC implements Runnable
     colorCorrection = "{ \"gamma\": " + gamma + ", \"whitepoint\": [" + red + "," + green + "," + blue + "]}";
     sendColorCorrectionPacket();
   }
-  
+
   // Set custom color correction parameters from a string
   public void setColorCorrection(String s)
   {
@@ -356,7 +407,7 @@ public class OPC implements Runnable
       // We'll do this when we reconnect
       return;
     }
- 
+
     byte[] packet = new byte[9];
     packet[0] = (byte)0x00; // Channel (reserved)
     packet[1] = (byte)0xFF; // Command (System Exclusive)
@@ -448,7 +499,7 @@ public class OPC implements Runnable
       updatePixels();
     }
   }
-  
+
   // Change the number of pixels in our output packet.
   // This is normally not needed; the output packet is automatically sized
   // by draw() and by setPixel().
@@ -465,7 +516,7 @@ public class OPC implements Runnable
       packetData[3] = (byte)(numBytes & 0xFF); // Length low byte
     }
   }
-  
+
   // Directly manipulate a pixel in the output buffer. This isn't needed
   // for pixels that are mapped to the screen.
   public void setPixel(int number, int c)
@@ -479,7 +530,7 @@ public class OPC implements Runnable
     packetData[offset + 1] = (byte) (c >> 8);
     packetData[offset + 2] = (byte) c;
   }
-  
+
   // Read a pixel from the output buffer. If the pixel was mapped to the display,
   // this returns the value we captured on the previous frame.
   public int getPixel(int number)

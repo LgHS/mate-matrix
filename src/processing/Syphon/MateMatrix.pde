@@ -24,10 +24,13 @@ class MateMatrix {
   private int rows;
   private int cols;
   private boolean zigzag;
+  private JSONObject config;
 
-  public MateMatrix(PApplet applet, OPC opc, JSONObject config){
+  public MateMatrix(PApplet applet, OPC opc, JSONObject _config){
     this.opc = opc;
     this.applet = applet;
+
+    config = _config;
 
     spacing = config.getInt("spacing");
     nbCrates = config.getInt("nbCrates");
@@ -44,24 +47,43 @@ class MateMatrix {
   }
 
   public void init() {
+    init(0, 0, cols);
+  }
+
+  public void init(int indexOffset, int offsetX, int _cols) {
+    println(indexOffset);
     for (int y = 0; y < rows; y++) {
       // in OPC led grids position x,y are their centers. We have to distribute centers over the height of the sketch
       float posY = applet.height / 2 + (spacing * crateH/2 * (-(rows-1) + y * 2));
 
-      for (int x = 0; x < cols; x++) {
-        int index = y * cols * pixelsPerCrate + x * pixelsPerCrate;
+      for (int x = 0; x < _cols; x++) {
+        int index = y * _cols * pixelsPerCrate + x * pixelsPerCrate;
         if (zigzag) {
           if (y % 2 == 1){
-            index = (y + 1) * cols * pixelsPerCrate - (x+1) * pixelsPerCrate;
+            index = (y + 1) * _cols * pixelsPerCrate - (x+1) * pixelsPerCrate;
           }
         }
 
-        float posX = offset + crateWidth * x;
+        float posX = (crateWidth * offsetX) + offset + crateWidth * x;
 
-        opc.ledGrid(index, crateW, crateH, posX, posY, spacing, spacing, 0, true, false);
+        opc.ledGrid(indexOffset + index, crateW, crateH, posX, posY, spacing, spacing, 0, true, false);
       }
     }
     enabled = true;
+  }
+
+  public void initMultiblock() {
+   JSONArray blocks = config.getJSONArray("blocks");
+   //int index = 0;
+   for(int i = 0; i < blocks.size(); i++){
+       JSONObject block = blocks.getJSONObject(i);
+       int blockRows = block.getInt("rows");
+       int blockCols = block.getInt("cols");
+       int offsetX = blockCols * i;
+       int ledIndex = blockRows * blockCols * 20 * i; // TODO change 20 to crate rows * crate cols
+
+       init(ledIndex, offsetX, blockCols);
+   }
   }
 
 
