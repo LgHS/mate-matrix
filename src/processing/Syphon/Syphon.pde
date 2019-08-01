@@ -48,18 +48,19 @@ void draw() {
   fill(0);
   rect(x * width/2, 0, 50, height);
   theta += 0.05;
-  */
+  
   background(0);
   fill(255);
   rect(mouseX-50, mouseY-50, 100, 100);
-  /*
+  */
+  
   try {
     background(0);
     canvas = client.getGraphics(canvas);
     image(canvas, 0, 0, width, height);
   } catch(Exception e) {
-
-  }*/
+    
+  }
 }
 
 void stop() {
