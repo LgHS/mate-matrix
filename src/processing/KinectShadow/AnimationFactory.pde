@@ -5,8 +5,8 @@ public class AnimationFactory {
     private ArrayList<AnimationInterface> animations = new ArrayList<AnimationInterface>();
 
     public AnimationFactory() {
-        animations.add(new ShadowAnimation());
-        //animations.add(new SimpleShadowAnimation());
+        //animations.add(new ShadowAnimation());
+        animations.add(new SimpleShadowAnimation());
         //animations.add(new SimpleInvertedAnimation());
         //animations.add(new RainbowAnimation());
     }

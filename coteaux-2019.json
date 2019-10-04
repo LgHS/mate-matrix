@@ -1,6 +1,6 @@
 {
   "matrix": {
-    "cols": 6,
+    "cols": 9,
     "rows": 6,
     "zigzag": false
   },
@@ -23,16 +23,16 @@
     "ledOffset": 0,
     "colorOrder": "grb",
     "devices": [
-      "SGCBIMISMMDUMCTF",
       "VBNGDLOIKOJQKIPD",
+      "SGCBIMISMMDUMCTF",
       "AOFQFPTBHLLYEYTD"
     ]
   },
   "processing": {
     "spacing": 20,
-    "blocks" : [
+    "blocks": [
       {
-        "position": "center",
+        "position": "left",
         "firstLed": 0,
         "cols": 9,
         "rows": 6

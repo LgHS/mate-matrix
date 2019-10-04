@@ -20,14 +20,14 @@ boolean isIdle = true;
 boolean useIdle = true;
 
 float t = 0;
-int nbCratesX = 6;
-int nbCratesY = 5;
+int nbCratesX = 9;
+int nbCratesY = 6;
 
 int kinectFill = -1;
 
 int occupation = 0;
 
-boolean showButtons = true; // true;
+boolean showButtons = false; // true;
 
 IdleAnimation idleAnimation;
 AnimationFactory animationFactory;
@@ -37,7 +37,7 @@ int interval = 60000;
 int lastRecordedTime = 0;
 
 void settings() {
-  config = loadJSONObject("matrix_config.json");
+  config = loadJSONObject("matrix_config_coteaux_2019.json");
   int cols = config.getInt("cols");
   int rows = config.getInt("rows");
   int crateW = config.getInt("crateW");
@@ -45,6 +45,7 @@ void settings() {
   int spacing = config.getInt("spacing");
   int w = cols*crateW*spacing;
   int h  = rows *crateH*spacing;
+  println(w, h);
   size(w,h,P3D);
 }
 
@@ -123,7 +124,7 @@ void drawButtons() {
   int nbButtons = 3;
   int buttonSize = 120;
   
-  for(int i = 0; i < nbButtons; i++) {-
+  for(int i = 0; i < nbButtons; i++) {
     int yPosition = height / nbButtons * i + height / (nbButtons * 2);
     fill(0, 0, 255, 200);
     noStroke();
