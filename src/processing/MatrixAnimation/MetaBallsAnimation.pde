@@ -17,9 +17,6 @@ class MetaBallsAnimation implements AudioReactiveAnimationInterface {
 
     int i = 0;
     for (Blob b : blobs) {
-
-      println(fft.spectrum[i] * 440 + 10);
-
       b.r = 6 + fft.spectrum[i] * 75;
 
       i++;
