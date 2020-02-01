@@ -11,22 +11,22 @@ class AnimationRunner {
   FFT fft;
 //  PVector[] blocks = new PVector[]{new PVector(3,3), new PVector(6,3), new PVector(3,3)}
   AnimationRunner(Amplitude ampl, FFT fft) {
-    anims.add(new Grid());
-    anims.add(new AudioReactiveShader("rainbow.glsl", new int[]{2, 12}));
-    anims.add(new AudioReactiveShader("nebula.glsl", new int[]{2}));
+    // anims.add(new Grid());
+    // anims.add(new AudioReactiveShader("rainbow.glsl", new int[]{2, 12}));
+    // anims.add(new AudioReactiveShader("nebula.glsl", new int[]{2}));
     anims.add(new MetaBallsAnimation());
     //anims.add(new NervousWaves2());
-    anims.add(new LineAnimation(ampl));
-    anims.add(new BreathingLines(ampl));
-    anims.add(new MonjoriShader("monjori.glsl"));
+    // anims.add(new LineAnimation(ampl));
+    // anims.add(new BreathingLines(ampl));
+    // anims.add(new MonjoriShader("monjori.glsl"));
     // anims.add(new Logo(in));
-    anims.add(new CratesAnimation());
-    anims.add(new SineWaveShader("sinewave.glsl"));
-    anims.add(new GenericShader("spiral.glsl"));
-    anims.add(new AudioReactiveShader("sinewave2.glsl", new int[]{2}));
+    // anims.add(new CratesAnimation());
+    // anims.add(new SineWaveShader("sinewave.glsl"));
+    // anims.add(new GenericShader("spiral.glsl"));
+    // anims.add(new AudioReactiveShader("sinewave2.glsl", new int[]{2}));
 
     // TODO : retrieve blocks configuration from json file
-    anims.add(new RectSplitAnimation(new PVector[]{new PVector(2,5), new PVector(3,5), new PVector(2,5)}));
+    // anims.add(new RectSplitAnimation(new PVector[]{new PVector(2,5), new PVector(3,5), new PVector(2,5)}));
     this.ampl = ampl;
     this.fft = fft;
     start = millis();

@@ -5,9 +5,9 @@ class Blob {
    PVector vel;
    public Blob(float x, float y){
        pos = new PVector(x, y);
-       r = random(10,30);
+       r = random(50,100);
        vel = PVector.random2D();
-       vel.mult(random(0.5,2));
+       vel.mult(random(0.5,1.5));
    }
   
   public void show(){
