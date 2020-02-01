@@ -46,7 +46,7 @@ void settings() {
   int w = cols*crateW*spacing;
   int h  = rows *crateH*spacing;
   println(w, h);
-  size(w,h,P3D);
+  size(w, h, P3D);
 }
 
 void setup() {
@@ -58,7 +58,7 @@ void setup() {
 
   oscP5 = new OscP5(this, 10000);
 
-  colorMode(HSB, 360,255,255);
+  colorMode(HSB, 360, 255, 255);
 
   cam = createImage(kinect.width, kinect.height, RGB);
   pg = createGraphics(width, height, P3D);
@@ -96,15 +96,15 @@ void draw() {
   }
 
   cam.updatePixels();
-  
+
   float occupationRatio = occupation * 1.0f / (kinect.width * kinect.height);
-  
+
   isIdle = useIdle && (occupationRatio < occupationThreshold);
 
-  if(isIdle) {
+  if (isIdle) {
     pg = idleAnimation.draw(pg, cam, occupationRatio);
   } else {
-    if(millis() - lastRecordedTime > interval){
+    if (millis() - lastRecordedTime > interval) {
       //currentAnim = animationFactory.getNextAnimation();
       //interval = currentAnim.duration();
       lastRecordedTime = millis(); 
@@ -112,10 +112,10 @@ void draw() {
     }
     pg = currentAnim.draw(pg, cam, occupationRatio);
   }
-  
+
   image(pg, 0, 0);
 
-  if(showButtons) {
+  if (showButtons) {
     drawButtons();
   }
 }
@@ -123,8 +123,8 @@ void draw() {
 void drawButtons() {
   int nbButtons = 3;
   int buttonSize = 120;
-  
-  for(int i = 0; i < nbButtons; i++) {
+
+  for (int i = 0; i < nbButtons; i++) {
     int yPosition = height / nbButtons * i + height / (nbButtons * 2);
     fill(0, 0, 255, 200);
     noStroke();
@@ -138,21 +138,30 @@ void exit() {
   super.exit();
 }
 
+
+
+void connect(String theIPaddress) {
+  println(theIPaddress + " connected.");
+}
+
+
 /* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
-  if(theOscMessage.addrPattern().equals("/oscControl/slider1")) {
+  println("received osc message", theOscMessage.toString());
+  if (theOscMessage.addrPattern().equals("/oscControl/slider1")) {
     minThresh = 2048 * theOscMessage.get(0).floatValue();
   }
 
-  if(theOscMessage.addrPattern().equals("/oscControl/slider2")) {
-    maxThresh = 2048 * theOscMessage.get(0).floatValue();;
+  if (theOscMessage.addrPattern().equals("/oscControl/slider2")) {
+    maxThresh = 2048 * theOscMessage.get(0).floatValue();
+    ;
   }
 
-  if(theOscMessage.addrPattern().equals("/oscControl/slider3")) {
+  if (theOscMessage.addrPattern().equals("/oscControl/slider3")) {
     occupationThreshold = theOscMessage.get(0).floatValue();
   }
 
-  if(theOscMessage.addrPattern().equals("/oscControl/toggle1")) {
+  if (theOscMessage.addrPattern().equals("/oscControl/toggle1")) {
     useIdle = theOscMessage.get(0).floatValue() == 1.0f;
   }
 }

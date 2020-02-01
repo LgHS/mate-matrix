@@ -31,7 +31,7 @@ AnimationRunner animRunner;
 // byte[] colors = new byte[CRATES];
 
 void settings(){
-  config = loadJSONObject("matrix_config_micro-2.json");
+  config = loadJSONObject("matrix_config.json");
   int cols = config.getInt("cols");
   int rows = config.getInt("rows");
   int crateW = config.getInt("crateW");
@@ -46,7 +46,7 @@ void setup()
 {
   // size(480, 500, P3D);
   //opc = new OPC(this, "192.168.42.124", 7890);
-  opc = new OPC(this, "192.168.0.35", 7890);
+  opc = new OPC(this, "192.168.42.220", 7890);
   // opc.setPixelCount(6*6*20);
   // pixelDensity(2);
   println(Serial.list());
